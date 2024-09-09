@@ -26,22 +26,14 @@ public class Stock {
 	@JoinColumn(name = "producto_codigo", nullable = false)
 	private Producto producto;
 
-	@Column(name = "talle", nullable = false)
-	private String talle;
-
-	@Column(name = "color", nullable = false)
-	private String color;
-
 	@Column(name = "cantidad", nullable = false)
 	private int cantidad;
 
-	public Stock(Long id, Tienda tienda, Producto producto, String talle, String color, int cantidad) {
+	public Stock(Long id, Tienda tienda, Producto producto, int cantidad) {
 		super();
 		this.id = id;
 		this.tienda = tienda;
 		this.producto = producto;
-		this.talle = talle;
-		this.color = color;
 		this.cantidad = cantidad;
 	}
 
@@ -72,22 +64,6 @@ public class Stock {
 
 	public void setProducto(Producto producto) {
 		this.producto = producto;
-	}
-
-	public String getTalle() {
-		return talle;
-	}
-
-	public void setTalle(String talle) {
-		this.talle = talle;
-	}
-
-	public String getColor() {
-		return color;
-	}
-
-	public void setColor(String color) {
-		this.color = color;
 	}
 
 	public int getCantidad() {
