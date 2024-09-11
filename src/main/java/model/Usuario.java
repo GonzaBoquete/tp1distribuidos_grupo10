@@ -1,7 +1,10 @@
 package model;
 
+import enumerators.Rol;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -34,11 +37,15 @@ public class Usuario {
 	@Column(name = "apellido", nullable = false)
 	private String apellido;
 
+	@Enumerated(EnumType.STRING)
+	@Column(name = "rol", nullable = false)
+	private Rol rol;
+
 	@Column(name = "habilitado", nullable = false)
 	private boolean habilitado;
 
 	public Usuario(Long id, String nombreUsuario, String contrasena, Tienda tienda, String nombre, String apellido,
-			boolean habilitado) {
+			Rol rol, boolean habilitado) {
 		super();
 		this.id = id;
 		this.nombreUsuario = nombreUsuario;
@@ -46,6 +53,7 @@ public class Usuario {
 		this.tienda = tienda;
 		this.nombre = nombre;
 		this.apellido = apellido;
+		this.rol = rol;
 		this.habilitado = habilitado;
 	}
 
@@ -100,6 +108,14 @@ public class Usuario {
 
 	public void setApellido(String apellido) {
 		this.apellido = apellido;
+	}
+
+	public Rol getRol() {
+		return rol;
+	}
+
+	public void setRol(Rol rol) {
+		this.rol = rol;
 	}
 
 	public boolean isHabilitado() {
