@@ -24,35 +24,25 @@ public class ProductoController {
 	private ProductoService productoService;
 
 	@PostMapping("/add")
-	public CompletableFuture<ResponseEntity> postRecord(@RequestBody Producto producto) {
-		productoService.save(producto);
+	public CompletableFuture<ResponseEntity> add(@RequestBody Producto producto) {
+		productoService.add(producto);
 		return CompletableFuture.completedFuture(ResponseEntity.ok("El usuario fue guardado con exito."));
+	}
+
+	@PutMapping("/update/{id}")
+	public CompletableFuture<ResponseEntity> update(@RequestBody Producto producto, @PathVariable Long codigo) {
+		productoService.update(producto, codigo);
+		return CompletableFuture.completedFuture(ResponseEntity.ok("El usuario fue actualizado con exito."));
+	}
+
+	@DeleteMapping("/delete/{id}")
+	public CompletableFuture<ResponseEntity> delete(@PathVariable Long codigo) {
+		productoService.delete(codigo);
+		return CompletableFuture.completedFuture(ResponseEntity.ok("El usuario fue eliminado con exito."));
 	}
 
 	@GetMapping("/listAll")
 	public CompletableFuture<ResponseEntity> getAll() {
 		return ((CompletableFuture<ResponseEntity>) productoService.getAll()).thenApply(ResponseEntity::ok);
 	}
-
-	@PutMapping("/update/{id}")
-	public CompletableFuture<ResponseEntity> update(@RequestBody Producto producto, @PathVariable Long codigo) {
-		Producto productToModify = productoService.buscar(codigo);
-		productToModify.setColor(producto.getColor());
-		productToModify.setFoto(producto.getFoto());
-		productToModify.setNombre(producto.getNombre());
-		productToModify.setStockList(producto.getStockList());
-		productToModify.setTalle(producto.getTalle());
-		productoService.save(productToModify);
-		return CompletableFuture.completedFuture(ResponseEntity.ok("El usuario fue actualizado con exito."));
-	}
-
-	@DeleteMapping("/delete/{id}")
-    public CompletableFuture<ResponseEntity> delete(@PathVariable Long codigo){
-    	try {
-    		productoService.eliminar(codigo);
-    	} catch(Exception e) {
-    		return CompletableFuture.completedFuture(ResponseEntity.internalServerError().body("Se proujo un error eliminando el usuario."));
-    	}
-    	return CompletableFuture.completedFuture(ResponseEntity.ok("El usuario fue eliminado con exito."));
-    }
 }

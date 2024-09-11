@@ -17,23 +17,34 @@ public class ProductoServiceImpl implements ProductoService {
 	private ProductoRepository productoRepository;
 
 	@Override
-	public List<Producto> getAll() {
-		return (List<Producto>) productoRepository.findAll();
-	}
-
-	@Override
-	public void save(Producto producto) {
+	public void add(Producto producto) {
 		productoRepository.save(producto);
 	}
-
+	
 	@Override
-	public Producto buscar(long codigo) {
-		return productoRepository.findById(codigo).orElse(null);
+	public void update(Producto producto, Long codigo) {
+		Producto productToModify = this.geyByCode(codigo);
+		productToModify.setColor(producto.getColor());
+		productToModify.setFoto(producto.getFoto());
+		productToModify.setNombre(producto.getNombre());
+		productToModify.setStockList(producto.getStockList());
+		productToModify.setTalle(producto.getTalle());
+		productoRepository.save(productToModify);
 	}
 
 	@Override
-	public void eliminar(long codigo) {
+	public void delete(long codigo) {
 		productoRepository.deleteById(codigo);
+	}
+	
+	@Override
+	public Producto geyByCode(long codigo) {
+		return productoRepository.findById(codigo).orElse(null);
+	}
+	
+	@Override
+	public List<Producto> getAll() {
+		return (List<Producto>) productoRepository.findAll();
 	}
 
 }

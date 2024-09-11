@@ -8,9 +8,11 @@ public interface ProductoService {
 
 	public List<Producto> getAll();
 
-	public void save(Producto producto);
+	public void add(Producto producto);
+	
+	public void update(Producto producto, Long codigo);
 
-	public Producto buscar(long codigo);
+	public Producto geyByCode(long codigo);
 
-	public void eliminar(long codigo);
+	public void delete(long codigo);
 }
