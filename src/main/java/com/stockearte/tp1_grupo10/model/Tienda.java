@@ -1,4 +1,4 @@
-package model;
+package com.stockearte.tp1_grupo10.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

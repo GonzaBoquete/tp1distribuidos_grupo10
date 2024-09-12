@@ -1,15 +1,15 @@
-package controller;
+package com.stockearte.tp1_grupo10.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import service.TiendaService;
+import com.stockearte.tp1_grupo10.service.UsuarioService;
 
 @Controller
-@RequestMapping("/tienda")
-public class TiendaController {
+@RequestMapping("/usuario")
+public class UsuarioController {
 
 	@Autowired
-	private TiendaService tiendaService;
+	private UsuarioService usuarioService;
 }

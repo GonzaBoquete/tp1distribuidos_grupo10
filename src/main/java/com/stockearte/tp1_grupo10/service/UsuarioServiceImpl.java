@@ -1,4 +1,4 @@
-package service;
+package com.stockearte.tp1_grupo10.service;
 
 import java.util.List;
 
@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
-import model.Usuario;
-import repository.UsuarioRepository;
+import com.stockearte.tp1_grupo10.model.Usuario;
+import com.stockearte.tp1_grupo10.repository.UsuarioRepository;
 
 @Service("usuarioService")
 public class UsuarioServiceImpl implements UsuarioService {

@@ -1,4 +1,4 @@
-package enumerators;
+package com.stockearte.tp1_grupo10.enumerators;
 
 public enum Rol {
 	CASA_CENTRAL("Casa Central"),

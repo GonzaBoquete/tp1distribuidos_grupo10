@@ -1,8 +1,8 @@
-package service;
+package com.stockearte.tp1_grupo10.service;
 
 import java.util.List;
 
-import model.Usuario;
+import com.stockearte.tp1_grupo10.model.Usuario;
 
 public interface UsuarioService {
 
