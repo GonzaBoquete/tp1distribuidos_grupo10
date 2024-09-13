@@ -19,7 +19,7 @@ public class StockController {
 	
 	@SuppressWarnings("rawtypes")
 	@PostMapping("/add")
-	public ResponseEntity add(@RequestBody Stock stock) {
-		return ResponseEntity.ok(stockService.add(stock));
+	public ResponseEntity add(@RequestBody Stock stockaa) {
+		return ResponseEntity.ok(stockService.add(stockaa));
 	}
 }
