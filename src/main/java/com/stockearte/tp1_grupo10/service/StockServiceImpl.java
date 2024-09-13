@@ -15,25 +15,50 @@ public class StockServiceImpl implements StockService {
 	@Autowired
 	@Qualifier("stockRepository")
 	private StockRepository stockRepository;
-
+	
+	@Override
+	public Stock add(Stock stock) {
+		return stockRepository.save(stock);
+	}
+	
+	@Override
+	public Stock getOneById(Long id) {
+		Optional<Stock> stock = stockRepository.findById(id);
+		return stock.isEmpty() ? null : stock.get();
+	}	
+	
 	@Override
 	public List<Stock> getAll() {
 		return (List<Stock>) stockRepository.findAll();
 	}
 
 	@Override
-	public void save(Stock stock) {
-		stockRepository.save(stock);
+	public Stock update(Stock stock, Long id) {
+		Optional<Stock> foundStock = stockRepository.findById(id);
+		if (!foundStock.isEmpty()) {
+			foundStock.get().setTienda(stock.getTienda());
+			foundStock.get().setProducto(stock.getProducto());
+			return stockRepository.save(foundStock.get());
+		}
+		return null;
 	}
-
-	@Override
-	public Stock buscar(long id) {
-		return stockRepository.findById(id).orElse(null);
+	
+	public Stock update(int cantidad, Long id) {
+		Optional<Stock> foundStock = stockRepository.findById(id);
+		if (!foundStock.isEmpty()) {
+			foundStock.get().setCantidad(cantidad);
+		}
+		return null;
 	}
+	
+	
 
 	@Override
 	public void eliminar(long id) {
-		stockRepository.deleteById(id);
+		Optional<Stock> foundStock = stockRepository.findById(id);
+		if (!foundStock.isEmpty()) {
+			stockRepository.delete(foundStock.get());
+		}
 	}
 
 }

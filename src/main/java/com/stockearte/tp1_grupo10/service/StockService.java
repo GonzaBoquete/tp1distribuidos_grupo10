@@ -5,12 +5,16 @@ import java.util.List;
 import com.stockearte.tp1_grupo10.model.Stock;
 
 public interface StockService {
+	
+	Stock add(Stock stock);
 
-	public List<Stock> getAll();
+	Stock getOneById(Long id);
 
-	public void save(Stock producto);
+	List<Stock> getAll();
 
-	public Stock buscar(long id);
+	Stock update(Stock stock, Long id);
+	
+	Stock update(int cantidad, Long id);
 
-	public void eliminar(long id);
+	void delete(Long id);
 }
