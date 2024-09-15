@@ -15,25 +15,42 @@ public class TiendaServiceImpl implements TiendaService {
 	@Autowired
 	@Qualifier("tiendaRepository")
 	private TiendaRepository tiendaRepository;
+	
+	@Override
+	public Tienda add(Tienda tienda) {
+		return productoRepository.save(tienda);
+	}
 
+	@Override
+	public Tienda getOneById(Long codigo) {
+		Optional<Tienda> tienda = tiendaRepository.findById(codigo);
+		return tienda.isEmpty() ? null : tienda.get();
+	}
+	
 	@Override
 	public List<Tienda> getAll() {
 		return (List<Tienda>) tiendaRepository.findAll();
 	}
 
 	@Override
-	public void save(Tienda tienda) {
-		tiendaRepository.save(tienda);
+	public Tienda update(Tienda tienda, Long codigo) {
+		Optional<Tienda> foundTienda = tiendaRepository.findById(codigo);
+		if (!foundTienda.isEmpty()) {
+			foundTienda.get().setDireccion(tienda.getDireccion());
+			foundTienda.get().setCiudad(tienda.getCiudad());
+			foundTienda.get().setProvincia(tienda.getProvincia());
+			foundTienda.get().setHabilitada(tienda.getHabilitada());
+			return tiendaRepository.save(foundTienda.get());
+		}
+		return null;
 	}
-
+	
 	@Override
-	public Tienda buscar(long codigo) {
-		return tiendaRepository.findById(codigo).orElse(null);
-	}
-
-	@Override
-	public void eliminar(long codigo) {
-		tiendaRepository.deleteById(codigo);
+	public void delete(long codigo) {
+		Optional<Tienda> foundTienda = tiendaRepository.findById(codigo);
+		if (!foundTienda.isEmpty()) {
+			tiendaRepository.delete(foundTienda.get());
+		}
 	}
 
 }

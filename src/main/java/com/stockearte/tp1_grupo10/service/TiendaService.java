@@ -6,11 +6,13 @@ import com.stockearte.tp1_grupo10.model.Tienda;
 
 public interface TiendaService {
 
-	public List<Tienda> getAll();
+	Tienda add(Tienda tienda);
 
-	public void save(Tienda producto);
+	Tienda getOneById(Long codigo);
 
-	public Tienda buscar(long codigo);
+	List<Tienda> getAll();
 
-	public void eliminar(long codigo);
+	Tienda update(Tienda tienda, Long codigo);
+
+	void delete(Long codigo);
 }

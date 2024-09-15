@@ -53,7 +53,7 @@ public class Stock {
 	public Tienda getTienda() {
 		return tienda;
 	}
-
+	
 	public void setTienda(Tienda tienda) {
 		this.tienda = tienda;
 	}
