@@ -29,9 +29,8 @@ public class Stock {
 	@Column(name = "cantidad", nullable = false)
 	private int cantidad;
 
-	public Stock(Long id, Tienda tienda, Producto producto, int cantidad) {
+	public Stock( Tienda tienda, Producto producto, int cantidad) {
 		super();
-		this.id = id;
 		this.tienda = tienda;
 		this.producto = producto;
 		this.cantidad = cantidad;
@@ -44,10 +43,6 @@ public class Stock {
 
 	public Long getId() {
 		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
 	}
 
 	public Tienda getTienda() {
