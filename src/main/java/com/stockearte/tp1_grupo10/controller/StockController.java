@@ -1,5 +1,7 @@
 package com.stockearte.tp1_grupo10.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -33,12 +35,6 @@ public class StockController {
 		return ResponseEntity.ok(stockService.update(stock, id));
 	}
 	
-	@SuppressWarnings("rawtypes")
-	@PutMapping("/update/{id}")
-	public ResponseEntity update(@RequestBody int cantidad, @PathVariable Long id) {
-		return ResponseEntity.ok(stockService.update(stock, id));
-	}
-
 	@DeleteMapping("/delete/{id}")
 	public ResponseEntity<String> deleteStock(@PathVariable Long id) {
 		stockService.delete(id);

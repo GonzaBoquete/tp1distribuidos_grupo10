@@ -1,6 +1,7 @@
 package com.stockearte.tp1_grupo10.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -51,10 +52,8 @@ public class StockServiceImpl implements StockService {
 		return null;
 	}
 	
-	
-
 	@Override
-	public void eliminar(long id) {
+	public void delete(Long id) {
 		Optional<Stock> foundStock = stockRepository.findById(id);
 		if (!foundStock.isEmpty()) {
 			stockRepository.delete(foundStock.get());

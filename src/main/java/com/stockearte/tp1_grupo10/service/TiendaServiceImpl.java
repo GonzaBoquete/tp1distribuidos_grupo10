@@ -1,6 +1,7 @@
 package com.stockearte.tp1_grupo10.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -18,7 +19,7 @@ public class TiendaServiceImpl implements TiendaService {
 	
 	@Override
 	public Tienda add(Tienda tienda) {
-		return productoRepository.save(tienda);
+		return tiendaRepository.save(tienda);
 	}
 
 	@Override
@@ -39,14 +40,14 @@ public class TiendaServiceImpl implements TiendaService {
 			foundTienda.get().setDireccion(tienda.getDireccion());
 			foundTienda.get().setCiudad(tienda.getCiudad());
 			foundTienda.get().setProvincia(tienda.getProvincia());
-			foundTienda.get().setHabilitada(tienda.getHabilitada());
+			foundTienda.get().setHabilitada(tienda.isHabilitada());
 			return tiendaRepository.save(foundTienda.get());
 		}
 		return null;
 	}
 	
 	@Override
-	public void delete(long codigo) {
+	public void delete(Long codigo) {
 		Optional<Tienda> foundTienda = tiendaRepository.findById(codigo);
 		if (!foundTienda.isEmpty()) {
 			tiendaRepository.delete(foundTienda.get());

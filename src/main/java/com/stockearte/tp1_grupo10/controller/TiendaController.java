@@ -1,5 +1,7 @@
 package com.stockearte.tp1_grupo10.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -30,12 +32,12 @@ public class TiendaController {
 	@SuppressWarnings("rawtypes")
 	@PutMapping("/update/{codigo}")
 	public ResponseEntity update(@RequestBody Tienda tienda, @PathVariable Long codigo) {
-		return ResponseEntity.ok(tiendaService.update(tienda, id));
+		return ResponseEntity.ok(tiendaService.update(tienda, codigo));
 	}
 
 	@DeleteMapping("/delete/{codigo}")
 	public ResponseEntity<String> deleteTienda(@PathVariable Long codigo) {
-		tiendaService.delete(id);
+		tiendaService.delete(codigo);
 	    return ResponseEntity.ok().build();
 	}
 
