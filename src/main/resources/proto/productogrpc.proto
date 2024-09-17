@@ -1,0 +1,48 @@
+syntax = "proto3";
+
+option java_package = "com.stockearte.tp1_grupo10.grpc"; // Paquete donde se generará el código Java
+option java_outer_classname = "ProductoProto";            // Nombre de la clase generada
+
+// Definición de mensajes
+message Producto {
+  string codigo = 1;       // Corresponde a 'codigo' en la clase Producto
+  string nombre = 2;       // Corresponde a 'nombre'
+  string talle = 3;        // Corresponde a 'talle'
+  string foto = 4;         // Corresponde a 'foto'
+  string color = 5;        // Corresponde a 'color'
+  repeated Stock stockList = 6; // Corresponde a la lista de Stock relacionada
+}
+
+// Mensaje para una solicitud basada en el código del producto
+message ProductoCodigoRequest {
+  string codigo = 1;
+}
+
+// Definición de la lista de productos
+message ProductoList {
+  repeated Producto producto = 1;
+}
+
+message Stock {
+  int64 id = 1;            // Corresponde a 'id' en la clase Stock
+  int32 cantidad = 2;       // Corresponde a 'cantidad'
+  Tienda tienda = 3;        // Relación con Tienda
+}
+
+// Mensaje vacío para solicitudes que no requieren datos
+message Empty {}
+
+// Definición de servicios gRPC
+service ProductoService {
+  // Servicio para obtener un producto por su código
+  rpc ObtenerProducto (ProductoCodigoRequest) returns (Producto);
+
+  // Servicio para listar todos los productos
+  rpc ListarProductos (Empty) returns (ProductoList);
+
+  // Servicio para crear un nuevo producto
+  rpc CrearProducto (Producto) returns (Producto);
+
+  // Servicio para eliminar un producto por su código
+  rpc EliminarProducto (ProductoCodigoRequest) returns (Empty);
+}
