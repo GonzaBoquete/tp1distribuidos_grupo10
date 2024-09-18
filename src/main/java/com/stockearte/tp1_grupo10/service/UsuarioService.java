@@ -2,15 +2,17 @@ package com.stockearte.tp1_grupo10.service;
 
 import java.util.List;
 
+
 import com.stockearte.tp1_grupo10.model.Usuario;
 
 public interface UsuarioService {
 
-	public List<Usuario> getAll();
+	Usuario add(Usuario tienda);
 
-	public void save(Usuario producto);
+	Usuario getOneById(Long id);
 
-	public Usuario buscar(long id);
+	List<Usuario> getAll();
 
-	public void eliminar(long id);
+	Usuario update(Usuario tienda, Long id);
+
 }

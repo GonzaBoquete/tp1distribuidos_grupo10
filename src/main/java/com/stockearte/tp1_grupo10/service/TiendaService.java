@@ -14,5 +14,4 @@ public interface TiendaService {
 
 	Tienda update(Tienda tienda, Long codigo);
 
-	void delete(Long codigo);
 }

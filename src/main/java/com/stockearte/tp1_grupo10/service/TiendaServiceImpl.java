@@ -46,12 +46,6 @@ public class TiendaServiceImpl implements TiendaService {
 		return null;
 	}
 	
-	@Override
-	public void delete(Long codigo) {
-		Optional<Tienda> foundTienda = tiendaRepository.findById(codigo);
-		if (!foundTienda.isEmpty()) {
-			tiendaRepository.delete(foundTienda.get());
-		}
-	}
+	
 
 }
