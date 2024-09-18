@@ -1,0 +1,33 @@
+syntax = "proto3";
+
+import "google/protobuf/empty.proto"; // Importa el archivo empty.proto
+
+option java_package = "com.stockearte.tp1_grupo10.grpc";
+option java_outer_classname = "TiendaProto";
+
+// Definición del mensaje Tienda
+message Tienda {
+  string codigo = 1;
+  string direccion = 2;
+  string ciudad = 3;
+  string provincia = 4;
+  bool habilitada = 5;
+}
+
+// Definición de mensajes para las operaciones del servicio
+message TiendaIdRequest {
+  string codigo = 1;
+}
+
+message TiendaList {
+  repeated Tienda tiendas = 1;
+}
+
+// Definición de servicios gRPC para Tienda
+service TiendaService {
+  rpc AddTienda (Tienda) returns (Tienda);
+  rpc GetOneById (TiendaIdRequest) returns (Tienda);
+  rpc GetAll (Empty) returns (TiendaList);
+  rpc UpdateTienda (Tienda) returns (Tienda);
+  rpc DeleteTienda (TiendaIdRequest) returns (Empty);
+}
