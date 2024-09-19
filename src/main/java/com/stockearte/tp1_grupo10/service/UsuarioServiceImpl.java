@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
+import com.stockearte.tp1_grupo10.model.Tienda;
 import com.stockearte.tp1_grupo10.model.Usuario;
 import com.stockearte.tp1_grupo10.repository.UsuarioRepository;
 
@@ -47,6 +48,28 @@ public class UsuarioServiceImpl implements UsuarioService {
 			return usuarioRepository.save(foundUsuario.get());
 		}
 		return null;
+	}
+	
+	@Override
+	public Usuario login(String nombreUsuario, String contrasena) {
+		Optional<Usuario> optionalUser = usuarioRepository.findByNombreUsuario(nombreUsuario);
+		
+		if(optionalUser.isPresent()) {
+			Usuario user = optionalUser.get();
+			
+			if(user.getContrasena().equals(contrasena)) {
+				return user;
+			}else {
+				throw new RuntimeException("Contraseña incorrecta");
+			}
+		} else {
+			throw new RuntimeException("Usuario no encontrado");
+		}
+	}
+	
+	@Override
+	public Usuario buscarUsuario(String nombre, Tienda tienda) {
+		return usuarioRepository.findByNombreAndTienda(nombre, tienda);
 	}
 
 }

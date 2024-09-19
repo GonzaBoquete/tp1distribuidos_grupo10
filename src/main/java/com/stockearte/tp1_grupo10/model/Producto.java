@@ -15,7 +15,7 @@ public class Producto {
 
 	@Id
 	@Column(name = "codigo", length = 10, nullable = false, unique = true)
-	private String codigo;
+	private Long codigo;
 
 	@Column(name = "nombre", nullable = false)
 	private String nombre;
@@ -32,7 +32,7 @@ public class Producto {
 	@OneToMany(mappedBy = "producto", cascade = CascadeType.ALL)
 	private List<Stock> stockList;
 
-	public Producto(String codigo, String nombre, String talle, String foto, String color, List<Stock> stockList) {
+	public Producto(Long codigo, String nombre, String talle, String foto, String color, List<Stock> stockList) {
 		super();
 		this.codigo = codigo;
 		this.nombre = nombre;
@@ -47,11 +47,11 @@ public class Producto {
 		// TODO Auto-generated constructor stub
 	}
 
-	public String getCodigo() {
+	public Long getCodigo() {
 		return codigo;
 	}
 
-	public void setCodigo(String codigo) {
+	public void setCodigo(Long codigo) {
 		this.codigo = codigo;
 	}
 

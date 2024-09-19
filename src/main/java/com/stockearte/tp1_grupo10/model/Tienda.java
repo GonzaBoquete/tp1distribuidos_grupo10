@@ -11,7 +11,7 @@ public class Tienda {
 
 	@Id
 	@Column(name = "codigo", length = 10, nullable = false, unique = true)
-	private String codigo;
+	private Long codigo;
 
 	@Column(name = "direccion", nullable = false)
 	private String direccion;
@@ -25,7 +25,7 @@ public class Tienda {
 	@Column(name = "habilitada", nullable = false)
 	private boolean habilitada;
 
-	public Tienda(String codigo, String direccion, String ciudad, String provincia, boolean habilitada) {
+	public Tienda(Long codigo, String direccion, String ciudad, String provincia, boolean habilitada) {
 		super();
 		this.codigo = codigo;
 		this.direccion = direccion;
@@ -39,11 +39,11 @@ public class Tienda {
 		// TODO Auto-generated constructor stub
 	}
 
-	public String getCodigo() {
+	public Long getCodigo() {
 		return codigo;
 	}
 
-	public void setCodigo(String codigo) {
+	public void setCodigo(Long codigo) {
 		this.codigo = codigo;
 	}
 
