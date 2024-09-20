@@ -80,6 +80,7 @@
 					</execution>
 				</executions>
 				<configuration>
+					<protocExecutable>${project.basedir}/src/main/resources/protoc/bin/protoc.exe</protocExecutable>
 					<sourceDirectory>${project.basedir}/src/main/proto</sourceDirectory>
 					<outputDirectory>
 						${project.build.directory}/generated-sources/protobuf</outputDirectory>
