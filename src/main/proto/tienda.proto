@@ -1,9 +1,9 @@
 syntax = "proto3";
 
-import "google/protobuf/empty.proto"; // Importa el archivo empty.proto
-
 option java_package = "com.stockearte.tp1_grupo10.grpc";
 option java_outer_classname = "TiendaProto";
+
+import "google/protobuf/empty.proto"; // Importa el archivo empty.proto
 
 // Definición del mensaje Tienda
 message Tienda {
@@ -27,7 +27,7 @@ message TiendaList {
 service TiendaService {
   rpc AddTienda (Tienda) returns (Tienda);
   rpc GetOneById (TiendaIdRequest) returns (Tienda);
-  rpc GetAll (Empty) returns (TiendaList);
+  rpc GetAll (google.protobuf.Empty) returns (TiendaList);
   rpc UpdateTienda (Tienda) returns (Tienda);
-  rpc DeleteTienda (TiendaIdRequest) returns (Empty);
+  rpc DeleteTienda (TiendaIdRequest) returns (google.protobuf.Empty);
 }
