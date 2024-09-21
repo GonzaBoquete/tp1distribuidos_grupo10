@@ -1,11 +1,10 @@
 syntax = "proto3";
 
-import "tienda.proto"; // Importar tienda.proto para utilizar el mensaje Tienda
-import "google/protobuf/empty.proto"; // Importa el archivo empty.proto
-
 option java_package = "com.stockearte.tp1_grupo10.grpc";
 option java_outer_classname = "StockProto";
 
+import "tienda.proto"; // Importar tienda.proto para utilizar el mensaje Tienda
+import "google/protobuf/empty.proto"; // Importa el archivo empty.proto
 
 // Definición del mensaje Stock
 message Stock {
@@ -32,8 +31,8 @@ message StockUpdateRequest {
 service StockService {
   rpc AddStock (Stock) returns (Stock);
   rpc GetOneById (StockIdRequest) returns (Stock);
-  rpc GetAll (Empty) returns (StockList);
+  rpc GetAll (google.protobuf.Empty) returns (StockList);
   rpc UpdateStock (Stock) returns (Stock);
   rpc UpdateStockQuantity (StockUpdateRequest) returns (Stock);
-  rpc DeleteStock (StockIdRequest) returns (Empty);
+  rpc DeleteStock (StockIdRequest) returns (google.protobuf.Empty);
 }

@@ -1,11 +1,10 @@
 syntax = "proto3";
 
-import "tienda.proto"; // Importa el archivo tienda.proto
-import "stock.proto";  // Importa el archivo stock.proto
-import "google/protobuf/empty.proto"; // Importa el archivo empty.proto
-
 option java_package = "com.stockearte.tp1_grupo10.grpc"; // Paquete donde se generará el código Java
 option java_outer_classname = "ProductoProto";            // Nombre de la clase generada
+
+import "stock.proto";  // Importa el archivo stock.proto
+import "google/protobuf/empty.proto"; // Importa el archivo empty.proto
 
 // Definición de mensajes
 message Producto {
@@ -33,11 +32,11 @@ service ProductoService {
   rpc ObtenerProducto (ProductoCodigoRequest) returns (Producto);
 
   // Servicio para listar todos los productos
-  rpc ListarProductos (Empty) returns (ProductoList);
+  rpc ListarProductos (google.protobuf.Empty) returns (ProductoList);
 
   // Servicio para crear un nuevo producto
   rpc CrearProducto (Producto) returns (Producto);
 
   // Servicio para eliminar un producto por su código
-  rpc EliminarProducto (ProductoCodigoRequest) returns (Empty);
+  rpc EliminarProducto (ProductoCodigoRequest) returns (google.protobuf.Empty);
 }
