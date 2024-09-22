@@ -1,12 +1,8 @@
 package com.stockearte.tp1_grupo10.model;
 
-import java.util.List;
-
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -29,17 +25,13 @@ public class Producto {
 	@Column(name = "color", nullable = false)
 	private String color;
 
-	@OneToMany(mappedBy = "producto", cascade = CascadeType.ALL)
-	private List<Stock> stockList;
-
-	public Producto(Long codigo, String nombre, String talle, String foto, String color, List<Stock> stockList) {
+	public Producto(Long codigo, String nombre, String talle, String foto, String color) {
 		super();
 		this.codigo = codigo;
 		this.nombre = nombre;
 		this.talle = talle;
 		this.foto = foto;
 		this.color = color;
-		this.stockList = stockList;
 	}
 
 	public Producto() {
@@ -85,14 +77,6 @@ public class Producto {
 
 	public void setColor(String color) {
 		this.color = color;
-	}
-
-	public List<Stock> getStockList() {
-		return stockList;
-	}
-
-	public void setStockList(List<Stock> stockList) {
-		this.stockList = stockList;
 	}
 
 }
