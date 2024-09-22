@@ -40,7 +40,6 @@ public class ProductoServiceImpl implements ProductoService {
 			foundProducto.get().setColor(producto.getColor());
 			foundProducto.get().setFoto(producto.getFoto());
 			foundProducto.get().setNombre(producto.getNombre());
-			foundProducto.get().setStockList(producto.getStockList());
 			foundProducto.get().setTalle(producto.getTalle());
 			return productoRepository.save(foundProducto.get());
 		}
