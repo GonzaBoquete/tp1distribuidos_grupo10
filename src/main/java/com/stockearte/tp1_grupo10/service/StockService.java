@@ -2,6 +2,7 @@ package com.stockearte.tp1_grupo10.service;
 
 import java.util.List;
 
+import com.stockearte.tp1_grupo10.model.Producto;
 import com.stockearte.tp1_grupo10.model.Stock;
 
 public interface StockService {
@@ -17,4 +18,5 @@ public interface StockService {
 	Stock update(int cantidad, Long id);
 
 	void delete(Long id);
+	
 }

@@ -13,6 +13,7 @@ import com.stockearte.tp1_grupo10.model.Usuario;
 public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
 	Optional<Usuario> findByNombreUsuario(String nombreUsuario);
 	Usuario findByNombreAndTienda(String nombre, Tienda tienda);
+	Usuario findByNombre(String nombre);
 }
 
 

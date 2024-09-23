@@ -71,5 +71,11 @@ public class UsuarioServiceImpl implements UsuarioService {
 	public Usuario buscarUsuario(String nombre, Tienda tienda) {
 		return usuarioRepository.findByNombreAndTienda(nombre, tienda);
 	}
+	
+	@Override 
+	public Usuario buscarUsuario(String nombre) {
+		return usuarioRepository.findByNombre(nombre);
+	}
+	
 
 }

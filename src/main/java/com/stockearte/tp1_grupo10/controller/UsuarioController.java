@@ -1,6 +1,9 @@
 package com.stockearte.tp1_grupo10.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -64,7 +67,7 @@ public class UsuarioController {
 		}
 	}
 	
-	@GetMapping("/buscar")
+	@GetMapping("/buscarPorNombreYTienda")
 	public ResponseEntity<Usuario> buscarUsuario(@RequestParam String nombre, @RequestParam Long tiendaId) {
 		Optional<Tienda> optionalTienda = tiendaRepository.findById(tiendaId);
 		
@@ -81,6 +84,17 @@ public class UsuarioController {
 		}
 		
 		return ResponseEntity.ok(usuario);
+	}
+	
+	@GetMapping("/buscarPorNombre")
+	public ResponseEntity<Usuario> buscarUsuario(@RequestParam String nombre) {
+		Usuario usuario = usuarioService.buscarUsuario(nombre);
+		
+       if(usuario == null) {
+    	   return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+       }
+       
+       return ResponseEntity.ok(usuario);
 	}
 	
 	

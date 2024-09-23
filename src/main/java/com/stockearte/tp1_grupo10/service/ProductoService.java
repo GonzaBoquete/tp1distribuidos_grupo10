@@ -15,4 +15,6 @@ public interface ProductoService {
 	Producto update(Producto producto, Long codigo);
 
 	void delete(Long codigo);
+	
+	List<Producto> buscarProducto(String nombre, Long codigo, String talle, String color);
 }

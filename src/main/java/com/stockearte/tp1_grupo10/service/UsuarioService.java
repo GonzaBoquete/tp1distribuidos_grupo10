@@ -1,6 +1,7 @@
 package com.stockearte.tp1_grupo10.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import com.stockearte.tp1_grupo10.model.Tienda;
 import com.stockearte.tp1_grupo10.model.Usuario;
@@ -18,5 +19,7 @@ public interface UsuarioService {
 	Usuario login(String nombreUsuario, String contrasena);
 	
 	Usuario buscarUsuario(String nombre, Tienda tienda);
+	
+	Usuario buscarUsuario(String nombre);
 
 }

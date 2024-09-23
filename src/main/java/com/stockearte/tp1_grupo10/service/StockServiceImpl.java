@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
+import com.stockearte.tp1_grupo10.model.Producto;
 import com.stockearte.tp1_grupo10.model.Stock;
 import com.stockearte.tp1_grupo10.repository.StockRepository;
 
@@ -59,5 +60,5 @@ public class StockServiceImpl implements StockService {
 			stockRepository.delete(foundStock.get());
 		}
 	}
-
+	
 }

@@ -1,8 +1,11 @@
 package com.stockearte.tp1_grupo10.model;
 
+import java.util.List;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -24,7 +27,7 @@ public class Tienda {
 
 	@Column(name = "habilitada", nullable = false)
 	private boolean habilitada;
-
+	
 	public Tienda(Long codigo, String direccion, String ciudad, String provincia, boolean habilitada) {
 		super();
 		this.codigo = codigo;

@@ -54,5 +54,10 @@ public class ProductoServiceImpl implements ProductoService {
 			productoRepository.delete(foundProducto.get());
 		}
 	}
+	
+	@Override
+	public List<Producto> buscarProducto(String nombre, Long codigo, String talle, String color) {
+		return productoRepository.findByNombreContainingAndCodigoAndTalleAndColor(nombre, codigo, talle, color);
+	}
 
 }
