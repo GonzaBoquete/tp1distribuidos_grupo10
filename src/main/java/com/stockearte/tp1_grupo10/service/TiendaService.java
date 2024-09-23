@@ -13,5 +13,7 @@ public interface TiendaService {
 	List<Tienda> getAll();
 
 	Tienda update(Tienda tienda, Long codigo);
+	
+	List<Tienda> buscarTienda(Long codigo, boolean habilitada);
 
 }
