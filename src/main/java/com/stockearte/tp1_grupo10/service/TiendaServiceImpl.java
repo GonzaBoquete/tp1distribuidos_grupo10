@@ -46,6 +46,9 @@ public class TiendaServiceImpl implements TiendaService {
 		return null;
 	}
 	
-	
+	@Override
+	public List<Tienda> buscarTienda(Long codigo, boolean habilitada) {
+		return tiendaRepository.findByCodigoAndHabilitada(codigo, habilitada);
+	}
 
 }
