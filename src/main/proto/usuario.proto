@@ -1,0 +1,47 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "com.stockearte.tp1_grupo10.grpc";
+
+import "tienda.proto";
+import "google/protobuf/empty.proto";
+
+
+// Definición del mensaje Usuario
+message Usuario {
+  int64 id = 1;
+  string nombreUsuario = 2;
+  string contrasena = 3;
+  Tienda tienda = 4;
+  string nombre = 5;
+  string apellido = 6;
+  string rol = 7;
+  bool habilitado = 8;
+}
+
+message UsuarioIdRequest {
+  int64 id = 1;
+}
+
+message UsuarioLoginRequest {
+  string nombreUsuario = 1;
+  string contrasena = 2;
+}
+
+message UsuarioBusquedaRequest {
+  string nombre = 1;
+  Tienda tienda = 2;
+}
+
+message UsuarioList {
+  repeated Usuario usuarios = 1;
+}
+
+service UsuarioService {
+  rpc add (Usuario) returns (Usuario);
+  rpc getOneById (UsuarioIdRequest) returns (Usuario);
+  rpc getAll (google.protobuf.Empty) returns (UsuarioList);
+  rpc update (Usuario) returns (Usuario);
+  rpc login (UsuarioLoginRequest) returns (Usuario);
+  rpc buscarUsuario (UsuarioBusquedaRequest) returns (Usuario);
+}

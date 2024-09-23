@@ -1,43 +1,32 @@
 syntax = "proto3";
 
-import "tienda.proto"; // Importa el archivo tienda.proto
-import "stock.proto";  // Importa el archivo stock.proto
-import "google/protobuf/empty.proto"; // Importa el archivo empty.proto
+option java_multiple_files = true;
+option java_package = "com.stockearte.tp1_grupo10.grpc";
 
-option java_package = "com.stockearte.tp1_grupo10.grpc"; // Paquete donde se generará el código Java
-option java_outer_classname = "ProductoProto";            // Nombre de la clase generada
+import "google/protobuf/empty.proto";
 
 // Definición de mensajes
 message Producto {
-  string codigo = 1;       // Corresponde a 'codigo' en la clase Producto
-  string nombre = 2;       // Corresponde a 'nombre'
-  string talle = 3;        // Corresponde a 'talle'
-  string foto = 4;         // Corresponde a 'foto'
-  string color = 5;        // Corresponde a 'color'
-  repeated Stock stockList = 6; // Corresponde a la lista de Stock relacionada
+  string codigo = 1;
+  string nombre = 2;
+  string talle = 3;
+  string foto = 4;
+  string color = 5;
 }
 
-// Mensaje para una solicitud basada en el código del producto
 message ProductoCodigoRequest {
   string codigo = 1;
 }
 
-// Definición de la lista de productos
 message ProductoList {
-  repeated Producto producto = 1;
+  repeated Producto productos = 1;
 }
 
 // Definición de servicios gRPC
 service ProductoService {
-  // Servicio para obtener un producto por su código
-  rpc ObtenerProducto (ProductoCodigoRequest) returns (Producto);
-
-  // Servicio para listar todos los productos
-  rpc ListarProductos (Empty) returns (ProductoList);
-
-  // Servicio para crear un nuevo producto
-  rpc CrearProducto (Producto) returns (Producto);
-
-  // Servicio para eliminar un producto por su código
-  rpc EliminarProducto (ProductoCodigoRequest) returns (Empty);
+  rpc add (Producto) returns (Producto);
+  rpc getOneById (ProductoCodigoRequest) returns (Producto);
+  rpc getAll (google.protobuf.Empty) returns (ProductoList);
+  rpc update (Producto) returns (Producto);
+  rpc delete (ProductoCodigoRequest) returns (google.protobuf.Empty);
 }
