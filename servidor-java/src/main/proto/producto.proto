@@ -1,0 +1,32 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "com.stockearte.tp1_grupo10.grpc";
+
+import "google/protobuf/empty.proto";
+
+// Definición de mensajes
+message Producto {
+  string codigo = 1;
+  string nombre = 2;
+  string talle = 3;
+  string foto = 4;
+  string color = 5;
+}
+
+message ProductoCodigoRequest {
+  string codigo = 1;
+}
+
+message ProductoList {
+  repeated Producto productos = 1;
+}
+
+// Definición de servicios gRPC
+service ProductoService {
+  rpc add (Producto) returns (Producto);
+  rpc getOneById (ProductoCodigoRequest) returns (Producto);
+  rpc getAll (google.protobuf.Empty) returns (ProductoList);
+  rpc update (Producto) returns (Producto);
+  rpc delete (ProductoCodigoRequest) returns (google.protobuf.Empty);
+}
