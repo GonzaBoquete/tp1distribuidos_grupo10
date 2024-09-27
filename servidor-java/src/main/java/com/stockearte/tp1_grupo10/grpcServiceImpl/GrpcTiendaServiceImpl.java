@@ -24,7 +24,7 @@ public class GrpcTiendaServiceImpl extends TiendaServiceImplBase {
 	public void add(Tienda request, StreamObserver<Tienda> responseObserver) {
 		// Crear el objeto Tienda a partir del mensaje gRPC
 		com.stockearte.tp1_grupo10.model.Tienda tienda = new com.stockearte.tp1_grupo10.model.Tienda();
-		tienda.setCodigo(tienda.getCodigo());
+		tienda.setCodigo(Long.valueOf(request.getCodigo()));
 		tienda.setDireccion(request.getDireccion());
 		tienda.setCiudad(request.getCiudad());
 		tienda.setProvincia(request.getProvincia());
