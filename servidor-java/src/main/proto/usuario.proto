@@ -37,8 +37,13 @@ message UsuarioList {
   repeated Usuario usuarios = 1;
 }
 
+message UsuarioAddRequest {
+  Usuario usuario = 1;
+  int64 idTienda = 2;
+}
+
 service UsuarioService {
-  rpc add (Usuario) returns (Usuario);
+  rpc add (UsuarioAddRequest) returns (Usuario);
   rpc getOneById (UsuarioIdRequest) returns (Usuario);
   rpc getAll (google.protobuf.Empty) returns (UsuarioList);
   rpc update (Usuario) returns (Usuario);

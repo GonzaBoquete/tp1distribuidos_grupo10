@@ -3,6 +3,7 @@ package com.stockearte.tp1_grupo10.service;
 import java.util.List;
 import java.util.Optional;
 
+import org.hibernate.service.spi.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -18,8 +19,17 @@ public class UsuarioServiceImpl implements UsuarioService {
 	@Qualifier("usuarioRepository")
 	private UsuarioRepository usuarioRepository;
 
+	@Autowired
+	private TiendaService tiendaService;
+	
 	@Override
-	public Usuario add(Usuario usuario) {
+	public Usuario add(Usuario usuario, Long idTienda) {
+		Tienda tienda = getTiendaService().getOneById(idTienda);
+		if (tienda != null) {
+			usuario.setTienda(tienda);
+		} else {
+			throw new ServiceException("No se encontro la tienda");
+		}
 		return usuarioRepository.save(usuario);
 	}
 
@@ -75,6 +85,14 @@ public class UsuarioServiceImpl implements UsuarioService {
 	@Override 
 	public Usuario buscarUsuario(String nombre) {
 		return usuarioRepository.findByNombre(nombre);
+	}
+
+	public TiendaService getTiendaService() {
+		return tiendaService;
+	}
+
+	public void setTiendaService(TiendaService tiendaService) {
+		this.tiendaService = tiendaService;
 	}
 	
 

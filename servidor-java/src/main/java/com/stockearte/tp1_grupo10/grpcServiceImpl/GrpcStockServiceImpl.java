@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.google.protobuf.Empty;
 import com.stockearte.tp1_grupo10.grpc.Stock;
+import com.stockearte.tp1_grupo10.grpc.StockAddRequest;
 import com.stockearte.tp1_grupo10.grpc.StockIdRequest;
 import com.stockearte.tp1_grupo10.grpc.StockList;
 import com.stockearte.tp1_grupo10.grpc.StockServiceGrpc.StockServiceImplBase;
@@ -21,24 +22,16 @@ public class GrpcStockServiceImpl extends StockServiceImplBase {
 
 	@Autowired
 	private StockService stockService;
-
+	
 	@Override
-	public void add(Stock request, StreamObserver<Stock> responseObserver) {
+	public void add(StockAddRequest request, StreamObserver<Stock> responseObserver) {
 		// Crear el objeto Stock a partir del mensaje gRPC
 		com.stockearte.tp1_grupo10.model.Stock stock = new com.stockearte.tp1_grupo10.model.Stock();
-		stock.setCantidad(request.getCantidad());
-
-		// Se obtiene el Producto y Tienda desde los servicios correspondientes
-		com.stockearte.tp1_grupo10.model.Tienda tienda = new com.stockearte.tp1_grupo10.model.Tienda();
-		tienda.setCodigo(Long.valueOf(request.getTienda().getCodigo()));
-		stock.setTienda(tienda);
-
-		com.stockearte.tp1_grupo10.model.Producto producto = new com.stockearte.tp1_grupo10.model.Producto();
-		producto.setCodigo(Long.valueOf(request.getProductoCodigo()));
-		stock.setProducto(producto);
+		stock.setCantidad(request.getStock().getCantidad());
 
 		// Llamar al servicio para agregar el stock
-		com.stockearte.tp1_grupo10.model.Stock stockCreado = stockService.add(stock);
+		com.stockearte.tp1_grupo10.model.Stock stockCreado = stockService.add(stock,
+				Long.valueOf(request.getIdTienda()), Long.valueOf(request.getIdProducto()));
 
 		// Construir el objeto Stock de gRPC para devolverlo
 		Stock grpcStock = Stock.newBuilder().setId(stockCreado.getId()).setCantidad(stockCreado.getCantidad())

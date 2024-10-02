@@ -28,8 +28,14 @@ message StockUpdateRequest {
   int32 cantidad = 2;
 }
 
+message StockAddRequest {
+  Stock stock = 1;
+  int64 idTienda = 2;
+  int64 idProducto = 3;
+}
+
 service StockService {
-  rpc add (Stock) returns (Stock);
+  rpc add (StockAddRequest) returns (Stock);
   rpc getOneById (StockIdRequest) returns (Stock);
   rpc getAll (google.protobuf.Empty) returns (StockList);
   rpc update (Stock) returns (Stock);

@@ -3,12 +3,14 @@ package com.stockearte.tp1_grupo10.service;
 import java.util.List;
 import java.util.Optional;
 
+import org.hibernate.service.spi.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import com.stockearte.tp1_grupo10.model.Producto;
 import com.stockearte.tp1_grupo10.model.Stock;
+import com.stockearte.tp1_grupo10.model.Tienda;
 import com.stockearte.tp1_grupo10.repository.StockRepository;
 
 @Service("stockService")
@@ -17,9 +19,27 @@ public class StockServiceImpl implements StockService {
 	@Autowired
 	@Qualifier("stockRepository")
 	private StockRepository stockRepository;
-	
+
+	@Autowired
+	private TiendaService tiendaService;
+
+	@Autowired
+	private ProductoService productoService;
+
 	@Override
-	public Stock add(Stock stock) {
+	public Stock add(Stock stock, Long idTienda, Long idProducto) {
+		Tienda tienda = getTiendaService().getOneById(idTienda);
+		if (tienda != null) {
+			stock.setTienda(tienda);
+		} else {
+			throw new ServiceException("No se encontro la tienda");
+		}
+		Producto producto = getProductoService().getOneById(idProducto);
+		if (producto != null) {
+			stock.setProducto(producto);
+		} else {
+			throw new ServiceException("No se encontro el producto");
+		}
 		return stockRepository.save(stock);
 	}
 	
@@ -60,5 +80,21 @@ public class StockServiceImpl implements StockService {
 			stockRepository.delete(foundStock.get());
 		}
 	}
-	
+
+	public TiendaService getTiendaService() {
+		return tiendaService;
+	}
+
+	public void setTiendaService(TiendaService tiendaService) {
+		this.tiendaService = tiendaService;
+	}
+
+	public ProductoService getProductoService() {
+		return productoService;
+	}
+
+	public void setProductoService(ProductoService productoService) {
+		this.productoService = productoService;
+	}
+
 }
