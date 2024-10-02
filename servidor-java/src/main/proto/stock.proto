@@ -9,8 +9,8 @@ import "google/protobuf/empty.proto";
 // Definición del mensaje Stock
 message Stock {
   int64 id = 1;
-  Tienda tienda = 2;
-  string producto_codigo = 3;
+  int64 idTienda = 2;
+  int64 idProducto = 3;
   int32 cantidad = 4;
 }
 
@@ -28,14 +28,8 @@ message StockUpdateRequest {
   int32 cantidad = 2;
 }
 
-message StockAddRequest {
-  Stock stock = 1;
-  int64 idTienda = 2;
-  int64 idProducto = 3;
-}
-
 service StockService {
-  rpc add (StockAddRequest) returns (Stock);
+  rpc add (Stock) returns (Stock);
   rpc getOneById (StockIdRequest) returns (Stock);
   rpc getAll (google.protobuf.Empty) returns (StockList);
   rpc update (Stock) returns (Stock);

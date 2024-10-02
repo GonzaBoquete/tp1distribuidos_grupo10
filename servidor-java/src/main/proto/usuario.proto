@@ -12,7 +12,7 @@ message Usuario {
   int64 id = 1;
   string nombreUsuario = 2;
   string contrasena = 3;
-  Tienda tienda = 4;
+  int64 idTienda = 4;
   string nombre = 5;
   string apellido = 6;
   string rol = 7;
@@ -37,13 +37,8 @@ message UsuarioList {
   repeated Usuario usuarios = 1;
 }
 
-message UsuarioAddRequest {
-  Usuario usuario = 1;
-  int64 idTienda = 2;
-}
-
 service UsuarioService {
-  rpc add (UsuarioAddRequest) returns (Usuario);
+  rpc add (Usuario) returns (Usuario);
   rpc getOneById (UsuarioIdRequest) returns (Usuario);
   rpc getAll (google.protobuf.Empty) returns (UsuarioList);
   rpc update (Usuario) returns (Usuario);
