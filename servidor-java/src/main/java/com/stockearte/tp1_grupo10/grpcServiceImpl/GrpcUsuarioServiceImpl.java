@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.google.protobuf.Empty;
 import com.stockearte.tp1_grupo10.enumerators.Rol;
 import com.stockearte.tp1_grupo10.grpc.Usuario;
-import com.stockearte.tp1_grupo10.grpc.UsuarioAddRequest;
 import com.stockearte.tp1_grupo10.grpc.UsuarioBusquedaRequest;
 import com.stockearte.tp1_grupo10.grpc.UsuarioIdRequest;
 import com.stockearte.tp1_grupo10.grpc.UsuarioList;
@@ -29,15 +28,15 @@ public class GrpcUsuarioServiceImpl extends UsuarioServiceImplBase {
 	private TiendaService tiendaService;
 	
 	@Override
-	public void add(UsuarioAddRequest request, StreamObserver<Usuario> responseObserver) {
+	public void add(Usuario request, StreamObserver<Usuario> responseObserver) {
 		// Mapear el mensaje gRPC Usuario al modelo Usuario de la capa de servicios
 				com.stockearte.tp1_grupo10.model.Usuario usuario = new com.stockearte.tp1_grupo10.model.Usuario();
-				usuario.setNombreUsuario(request.getUsuario().getNombreUsuario());
-				usuario.setContrasena(request.getUsuario().getContrasena());
-				usuario.setNombre(request.getUsuario().getNombre());
-				usuario.setApellido(request.getUsuario().getApellido());
-				usuario.setRol(Rol.valueOf(request.getUsuario().getRol()));
-				usuario.setHabilitado(request.getUsuario().getHabilitado());
+				usuario.setNombreUsuario(request.getNombreUsuario());
+				usuario.setContrasena(request.getContrasena());
+				usuario.setNombre(request.getNombre());
+				usuario.setApellido(request.getApellido());
+				usuario.setRol(Rol.valueOf(request.getRol()));
+				usuario.setHabilitado(request.getHabilitado());
 
 				// Llamar al servicio para agregar el usuario
 				com.stockearte.tp1_grupo10.model.Usuario usuarioAgregado = usuarioService.add(usuario, request.getIdTienda());
@@ -46,15 +45,11 @@ public class GrpcUsuarioServiceImpl extends UsuarioServiceImplBase {
 				Usuario grpcUsuario = Usuario.newBuilder().setId(usuarioAgregado.getId())
 						.setNombreUsuario(usuarioAgregado.getNombreUsuario()).setContrasena(usuarioAgregado.getContrasena())
 						.setNombre(usuarioAgregado.getNombre()).setApellido(usuarioAgregado.getApellido())
-						.setRol(usuarioAgregado.getRol().name()).setHabilitado(usuarioAgregado.isHabilitado()).build();
+						.setRol(usuarioAgregado.getRol().name()).setHabilitado(usuarioAgregado.isHabilitado()).setIdTienda(usuarioAgregado.getTienda().getCodigo()).build();
 
 				// Enviar la respuesta
 				responseObserver.onNext(grpcUsuario);
 				responseObserver.onCompleted();
-	}
-
-	public void add(Usuario request, StreamObserver<Usuario> responseObserver) {
-		
 	}
 
 	@Override
