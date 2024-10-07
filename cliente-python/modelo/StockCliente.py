@@ -10,8 +10,8 @@ class StockCliente:
 
     def add_stock(self, tienda, producto_codigo, cantidad):
         nuevo_stock = proto.stock_pb2.Stock(
-            tienda=tienda,
-            producto_codigo=producto_codigo,
+            idTienda=int(tienda),
+            idProducto=int(producto_codigo),
             cantidad=cantidad
         )
         return self.stub.add(nuevo_stock)
@@ -26,15 +26,21 @@ class StockCliente:
     def update_stock(self, id, tienda, producto_codigo, cantidad):
         stock_actualizado = proto.stock_pb2.Stock(
             id=id,
-            tienda=tienda,
-            producto_codigo=producto_codigo,
+            idTienda=int(tienda),
+            idProducto=int(producto_codigo),
             cantidad=cantidad
         )
         return self.stub.update(stock_actualizado)
 
     def update_stock_quantity(self, id, cantidad):
-        update_request = proto.stock_pb2.StockUpdateRequest(id=id, cantidad=cantidad)
-        return self.stub.updateStockQuantity(update_request)
+        try:
+            update_request = proto.stock_pb2.StockUpdateRequest(id=id, cantidad=cantidad)
+            response = self.stub.updateStockQuantity(update_request)
+            return response
+        except grpc.RpcError as e:
+            print(f"gRPC error: {e.details()}")
+            print(f"Status code: {e.code()}")
+            return None
 
     def delete_stock(self, id):
         id_request = proto.stock_pb2.StockIdRequest(id=id)

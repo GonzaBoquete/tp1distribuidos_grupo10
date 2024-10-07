@@ -71,7 +71,7 @@ if __name__ == '__main__':
 
 
     # Ejemplo: Agregar un usuario
-    nuevo_usuario = usuario.add_usuario('usuarioadmin', 'contrasena123', '001', 'Juan', 'Pérez', 'TIENDA', True)
+    nuevo_usuario = usuario.add_usuario('usuario15', 'contrasena123', '001', 'Juan', 'Pérez', 'TIENDA', True)
     print(f'Usuario agregado: {nuevo_usuario}')
 
     # Ejemplo: Obtener un usuario por ID
@@ -83,15 +83,15 @@ if __name__ == '__main__':
     print(f'Lista de usuarios: {usuarios_lista}')
 
     # Ejemplo: Actualizar un usuario
-    usuario_actualizado = usuario.update_usuario(nuevo_usuario.id, 'usuario1', 'nueva_contrasena', 'Tienda A', 'Juan', 'Pérez', 'admin', True)
+    usuario_actualizado = usuario.update_usuario(nuevo_usuario.id, 'usuario15', 'nueva_contrasena', '001', 'Juan', 'Pérez', 'TIENDA', True)
     print(f'Usuario actualizado: {usuario_actualizado}')
 
     # Ejemplo: Iniciar sesión
-    usuario_logueado = usuario.login('usuario1', 'nueva_contrasena')
+    usuario_logueado = usuario.login('usuario1', 'contrasena123')
     print(f'Usuario logueado: {usuario_logueado}')
 
     # Ejemplo: Buscar un usuario
-    usuario_buscado = usuario.buscar_usuario('Juan', 'Tienda A')
+    usuario_buscado = usuario.buscar_usuario('Juan', '001')
     print(f'Usuario encontrado: {usuario_buscado}')
 
 

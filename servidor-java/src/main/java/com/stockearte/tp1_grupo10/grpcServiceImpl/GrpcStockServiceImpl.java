@@ -107,9 +107,7 @@ public class GrpcStockServiceImpl extends StockServiceImplBase {
 				request.getId());
 
 		// Construir el objeto Stock actualizado para devolverlo
-		Stock grpcStock = Stock.newBuilder().setId(stockActualizado.getId()).setCantidad(stockActualizado.getCantidad())
-				.setIdProducto(stockActualizado.getProducto().getCodigo())
-				.setIdTienda(stockActualizado.getTienda().getCodigo()).build();
+		Stock grpcStock = Stock.newBuilder().setId(stockActualizado.getId()).setCantidad(stockActualizado.getCantidad()).build();
 
 		responseObserver.onNext(grpcStock);
 		responseObserver.onCompleted();
