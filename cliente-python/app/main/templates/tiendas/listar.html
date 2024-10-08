@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block title %}Listado de Tiendas{% endblock %}
+{% block content %}
+<h1>Listado de Tiendas</h1>
+<a href="{{ url_for('main.crear_tienda') }}" class="btn btn-primary mb-3">Crear Nueva Tienda</a>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Código</th>
+            <th>Dirección</th>
+            <th>Ciudad</th>
+            <th>Provincia</th>
+            <th>Habilitada</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for tienda in tiendas %}
+        <tr>
+            <td>{{ tienda.codigo }}</td>
+            <td>{{ tienda.direccion }}</td>
+            <td>{{ tienda.ciudad }}</td>
+            <td>{{ tienda.provincia }}</td>
+            <td>{{ 'Sí' if tienda.habilitada else 'No' }}</td>
+            <td>
+                <a href="{{ url_for('main.detalle_tienda', codigo=tienda.codigo) }}" class="btn btn-info btn-sm">Detalles</a>
+                <form action="{{ url_for('main.eliminar_tienda', codigo=tienda.codigo) }}" method="POST" style="display:inline;">
+                    <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('¿Estás seguro de eliminar esta tienda?');">Eliminar</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

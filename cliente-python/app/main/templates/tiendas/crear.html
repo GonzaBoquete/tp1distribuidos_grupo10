@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block title %}Crear Tienda{% endblock %}
+{% block content %}
+<h1>Crear Nueva Tienda</h1>
+<form method="POST">
+    {{ form.hidden_tag() }}
+    <div class="form-group">
+        {{ form.codigo.label(class="form-label") }}
+        {{ form.codigo(class="form-control") }}
+    </div>
+    <div class="form-group">
+        {{ form.direccion.label(class="form-label") }}
+        {{ form.direccion(class="form-control") }}
+    </div>
+    <div class="form-group">
+        {{ form.ciudad.label(class="form-label") }}
+        {{ form.ciudad(class="form-control") }}
+    </div>
+    <div class="form-group">
+        {{ form.provincia.label(class="form-label") }}
+        {{ form.provincia(class="form-control") }}
+    </div>
+    <div class="form-group form-check">
+        {{ form.habilitada(class="form-check-input") }}
+        {{ form.habilitada.label(class="form-check-label") }}
+    </div>
+    <button type="submit" class="btn btn-success">Crear</button>
+</form>
+{% endblock %}

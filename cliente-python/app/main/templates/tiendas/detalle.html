@@ -1,0 +1,27 @@
+@main.route('/tiendas/detalle/<codigo>', methods=['GET', 'POST'])
+    def detalle_tienda(codigo):
+        # Obtener la tienda
+        request_proto = tienda_pb2.TiendaCodigoRequest(codigo=codigo)
+        try:
+            tienda = current_app.tienda_stub.getOneById(request_proto)
+        except grpc.RpcError as e:
+            flash(f'Error al obtener tienda: {e.details()}', 'danger')
+            return redirect(url_for('main.listar_tiendas'))
+    
+        form = CrearTiendaForm(obj=tienda)  # Asignar los datos actuales al formulario
+        if form.validate_on_submit():
+            tienda_actualizada = tienda_pb2.Tienda(
+                codigo=form.codigo.data,
+                direccion=form.direccion.data,
+                ciudad=form.ciudad.data,
+                provincia=form.provincia.data,
+                habilitada=form.habilitada.data
+            )
+            try:
+                response = current_app.tienda_stub.update(tienda_actualizada)
+                flash('Tienda actualizada exitosamente!', 'success')
+                return redirect(url_for('main.listar_tiendas'))
+            except grpc.RpcError as e:
+                flash(f'Error al actualizar tienda: {e.details()}', 'danger')
+    
+        return render_template('tiendas/detalle.html', form=form, tienda=tienda)

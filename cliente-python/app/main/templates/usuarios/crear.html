@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block title %}Crear Usuario{% endblock %}
+{% block content %}
+<h1>Crear Nuevo Usuario</h1>
+<form method="POST">
+    {{ form.hidden_tag() }}
+    <div class="form-group">
+        {{ form.nombre_usuario.label(class="form-label") }}
+        {{ form.nombre_usuario(class="form-control") }}
+    </div>
+    <div class="form-group">
+        {{ form.contraseña.label(class="form-label") }}
+        {{ form.contraseña(class="form-control") }}
+    </div>
+    <div class="form-group">
+        {{ form.tienda.label(class="form-label") }}
+        {{ form.tienda(class="form-control") }}
+    </div>
+    <div class="form-group">
+        {{ form.nombre.label(class="form-label") }}
+        {{ form.nombre(class="form-control") }}
+    </div>
+    <div class="form-group">
+        {{ form.apellido.label(class="form-label") }}
+        {{ form.apellido(class="form-control") }}
+    </div>
+    <div class="form-group form-check">
+        {{ form.habilitado(class="form-check-input") }}
+        {{ form.habilitado.label(class="form-check-label") }}
+    </div>
+    <button type="submit" class="btn btn-success">Crear</button>
+</form>
+{% endblock %}
