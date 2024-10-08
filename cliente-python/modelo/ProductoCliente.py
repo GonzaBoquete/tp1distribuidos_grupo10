@@ -10,7 +10,7 @@ class ProductoCliente:
 
     def add_producto(self, codigo, nombre, talle, foto, color):
         nuevo_producto = proto.producto_pb2.Producto(
-            codigo=codigo,
+            codigo=int(codigo),
             nombre=nombre,
             talle=talle,
             foto=foto,
@@ -19,7 +19,7 @@ class ProductoCliente:
         return self.stub.add(nuevo_producto)
 
     def get_producto(self, codigo):
-        codigo_request = proto.producto_pb2.ProductoCodigoRequest(codigo=codigo)
+        codigo_request = proto.producto_pb2.ProductoCodigoRequest(codigo=int(codigo))
         return self.stub.getOneById(codigo_request)
 
     def get_all_productos(self):
@@ -27,7 +27,7 @@ class ProductoCliente:
 
     def update_producto(self, codigo, nombre, talle, foto, color):
         producto_actualizado = proto.producto_pb2.Producto(
-            codigo=codigo,
+            codigo=int(codigo),
             nombre=nombre,
             talle=talle,
             foto=foto,

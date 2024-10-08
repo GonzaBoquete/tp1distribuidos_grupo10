@@ -9,16 +9,20 @@ class UsuarioCliente:
         self.stub = proto.usuario_pb2_grpc.UsuarioServiceStub(self.channel)
 
     def add_usuario(self, nombre_usuario, contrasena, tienda, nombre, apellido, rol, habilitado):
-        nuevo_usuario = proto.usuario_pb2.Usuario(
-            nombreUsuario=nombre_usuario,
-            contrasena=contrasena,
-            tienda=tienda,
-            nombre=nombre,
-            apellido=apellido,
-            rol=rol,
-            habilitado=habilitado
-        )
-        return self.stub.add(nuevo_usuario)
+        try:
+            nuevo_usuario = proto.usuario_pb2.Usuario(
+                nombreUsuario=nombre_usuario,
+                contrasena=contrasena,
+                idTienda=int(tienda),
+                nombre=nombre,
+                apellido=apellido,
+                rol=rol,
+                habilitado=habilitado
+            )
+            return self.stub.add(nuevo_usuario)
+        except:
+            print("El usuario ya existe")
+            return None
 
     def get_usuario(self, id):
         id_request = proto.usuario_pb2.UsuarioIdRequest(id=id)
@@ -32,7 +36,7 @@ class UsuarioCliente:
             id=id,
             nombreUsuario=nombre_usuario,
             contrasena=contrasena,
-            tienda=tienda,
+            idTienda=int(tienda),
             nombre=nombre,
             apellido=apellido,
             rol=rol,
@@ -41,11 +45,15 @@ class UsuarioCliente:
         return self.stub.update(usuario_actualizado)
 
     def login(self, nombre_usuario, contrasena):
-        login_request = proto.usuario_pb2.UsuarioLoginRequest(nombreUsuario=nombre_usuario, contrasena=contrasena)
-        return self.stub.login(login_request)
+        try:
+            login_request = proto.usuario_pb2.UsuarioLoginRequest(nombreUsuario=nombre_usuario, contrasena=contrasena)
+            return self.stub.login(login_request)
+        except:
+            print("Error de inicio de sesión")
+            return None
 
     def buscar_usuario(self, nombre, tienda):
-        busqueda_request = proto.usuario_pb2.UsuarioBusquedaRequest(nombre=nombre, tienda=tienda)
+        busqueda_request = proto.usuario_pb2.UsuarioBusquedaRequest(nombre=nombre, idTienda=int(tienda))
         return self.stub.buscarUsuario(busqueda_request)
 
     def close(self):

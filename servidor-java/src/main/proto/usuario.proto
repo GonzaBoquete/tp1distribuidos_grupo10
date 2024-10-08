@@ -3,7 +3,6 @@ syntax = "proto3";
 option java_multiple_files = true;
 option java_package = "com.stockearte.tp1_grupo10.grpc";
 
-import "tienda.proto";
 import "google/protobuf/empty.proto";
 
 
@@ -30,11 +29,11 @@ message UsuarioLoginRequest {
 
 message UsuarioBusquedaRequest {
   string nombre = 1;
-  Tienda tienda = 2;
+  int64 idTienda = 2;
 }
 
 message UsuarioList {
-  repeated Usuario usuarios = 1;
+    repeated Usuario usuarios = 1;
 }
 
 service UsuarioService {
@@ -43,5 +42,5 @@ service UsuarioService {
   rpc getAll (google.protobuf.Empty) returns (UsuarioList);
   rpc update (Usuario) returns (Usuario);
   rpc login (UsuarioLoginRequest) returns (Usuario);
-  rpc buscarUsuario (UsuarioBusquedaRequest) returns (Usuario);
+  rpc buscarUsuario(UsuarioBusquedaRequest) returns (UsuarioList);
 }

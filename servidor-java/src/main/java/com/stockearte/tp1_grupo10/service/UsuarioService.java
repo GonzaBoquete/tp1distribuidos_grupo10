@@ -17,8 +17,8 @@ public interface UsuarioService {
 	
 	Usuario login(String nombreUsuario, String contrasena);
 	
-	Usuario buscarUsuario(String nombre, Tienda tienda);
+	List<Usuario> buscarUsuario(String nombre, Tienda tienda);
 	
-	Usuario buscarUsuario(String nombre);
+	List<Usuario> buscarUsuario(String nombre);
 
 }

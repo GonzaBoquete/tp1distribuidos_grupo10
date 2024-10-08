@@ -30,6 +30,12 @@ public class UsuarioServiceImpl implements UsuarioService {
 		} else {
 			throw new ServiceException("No se encontro la tienda");
 		}
+		// Verificar si el usuario ya existe, por ejemplo, usando el correo electrónico
+	    Optional<Usuario> existingUser = usuarioRepository.findByNombreUsuario(usuario.getNombreUsuario());
+	    if (existingUser.isPresent()) {
+	        throw new ServiceException("El usuario ya existe"); // Lanza una excepción si ya existe
+	    }
+	    
 		return usuarioRepository.save(usuario);
 	}
 
@@ -78,12 +84,12 @@ public class UsuarioServiceImpl implements UsuarioService {
 	}
 	
 	@Override
-	public Usuario buscarUsuario(String nombre, Tienda tienda) {
+	public List<Usuario> buscarUsuario(String nombre, Tienda tienda) {
 		return usuarioRepository.findByNombreAndTienda(nombre, tienda);
 	}
 	
 	@Override 
-	public Usuario buscarUsuario(String nombre) {
+	public List<Usuario> buscarUsuario(String nombre) {
 		return usuarioRepository.findByNombre(nombre);
 	}
 

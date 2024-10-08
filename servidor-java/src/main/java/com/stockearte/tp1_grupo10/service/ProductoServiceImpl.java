@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.stockearte.tp1_grupo10.model.Producto;
 import com.stockearte.tp1_grupo10.repository.ProductoRepository;
+import com.stockearte.tp1_grupo10.repository.StockRepository;
 
 @Service("productoService")
 public class ProductoServiceImpl implements ProductoService {
@@ -16,6 +17,9 @@ public class ProductoServiceImpl implements ProductoService {
 	@Autowired
 	@Qualifier("productoRepository")
 	private ProductoRepository productoRepository;
+	
+	@Autowired
+	private StockRepository stockRepository;
 
 	@Override
 	public Producto add(Producto producto) {
@@ -44,14 +48,6 @@ public class ProductoServiceImpl implements ProductoService {
 			return productoRepository.save(foundProducto.get());
 		}
 		return null;
-	}
-
-	@Override
-	public void delete(Long codigo) {
-		Optional<Producto> foundProducto = productoRepository.findById(codigo);
-		if (!foundProducto.isEmpty()) {
-			productoRepository.delete(foundProducto.get());
-		}
 	}
 	
 	@Override

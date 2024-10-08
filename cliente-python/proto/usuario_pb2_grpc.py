@@ -43,7 +43,7 @@ class UsuarioServiceStub(object):
         self.buscarUsuario = channel.unary_unary(
                 '/UsuarioService/buscarUsuario',
                 request_serializer=usuario__pb2.UsuarioBusquedaRequest.SerializeToString,
-                response_deserializer=usuario__pb2.Usuario.FromString,
+                response_deserializer=usuario__pb2.UsuarioList.FromString,
                 )
 
 
@@ -117,7 +117,7 @@ def add_UsuarioServiceServicer_to_server(servicer, server):
             'buscarUsuario': grpc.unary_unary_rpc_method_handler(
                     servicer.buscarUsuario,
                     request_deserializer=usuario__pb2.UsuarioBusquedaRequest.FromString,
-                    response_serializer=usuario__pb2.Usuario.SerializeToString,
+                    response_serializer=usuario__pb2.UsuarioList.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -227,6 +227,6 @@ class UsuarioService(object):
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/UsuarioService/buscarUsuario',
             usuario__pb2.UsuarioBusquedaRequest.SerializeToString,
-            usuario__pb2.Usuario.FromString,
+            usuario__pb2.UsuarioList.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

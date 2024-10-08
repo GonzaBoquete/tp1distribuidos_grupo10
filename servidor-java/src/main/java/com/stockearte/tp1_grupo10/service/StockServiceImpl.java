@@ -69,6 +69,7 @@ public class StockServiceImpl implements StockService {
 		Optional<Stock> foundStock = stockRepository.findById(id);
 		if (!foundStock.isEmpty()) {
 			foundStock.get().setCantidad(cantidad);
+			return stockRepository.save(foundStock.get());
 		}
 		return null;
 	}

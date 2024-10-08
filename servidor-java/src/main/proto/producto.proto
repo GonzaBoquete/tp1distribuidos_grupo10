@@ -7,7 +7,7 @@ import "google/protobuf/empty.proto";
 
 // Definición de mensajes
 message Producto {
-  string codigo = 1;
+  int64 codigo = 1;
   string nombre = 2;
   string talle = 3;
   string foto = 4;
@@ -15,7 +15,7 @@ message Producto {
 }
 
 message ProductoCodigoRequest {
-  string codigo = 1;
+  int64 codigo = 1;
 }
 
 message ProductoList {
@@ -28,5 +28,4 @@ service ProductoService {
   rpc getOneById (ProductoCodigoRequest) returns (Producto);
   rpc getAll (google.protobuf.Empty) returns (ProductoList);
   rpc update (Producto) returns (Producto);
-  rpc delete (ProductoCodigoRequest) returns (google.protobuf.Empty);
 }
