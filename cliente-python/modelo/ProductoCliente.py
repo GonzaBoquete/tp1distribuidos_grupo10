@@ -27,7 +27,7 @@ class ProductoCliente:
 
     def update_producto(self, codigo, nombre, talle, foto, color):
         producto_actualizado = proto.producto_pb2.Producto(
-            codigo=codigo,
+            codigo=int(codigo),
             nombre=nombre,
             talle=talle,
             foto=foto,
@@ -36,8 +36,7 @@ class ProductoCliente:
         return self.stub.update(producto_actualizado)
 
     def delete_producto(self, codigo):
-        id_cod =int(codigo)
-        codigo_request = proto.producto_pb2.ProductoCodigoRequest(codigo=id_cod)
+        codigo_request = proto.producto_pb2.ProductoCodigoRequest(codigo=codigo)
         return self.stub.delete(codigo_request)
 
     def close(self):

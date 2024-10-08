@@ -14,5 +14,4 @@ import com.stockearte.tp1_grupo10.model.Stock;
 
 @Repository("stockRepository")
 public interface StockRepository extends JpaRepository<Stock, Long> {
-	
 }

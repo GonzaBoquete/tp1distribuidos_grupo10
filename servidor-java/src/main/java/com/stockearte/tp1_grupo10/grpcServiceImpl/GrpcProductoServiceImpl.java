@@ -27,7 +27,7 @@ public class GrpcProductoServiceImpl extends ProductoServiceImplBase {
 		com.stockearte.tp1_grupo10.model.Producto producto = getProductoService()
 				.getOneById(Long.valueOf(request.getCodigo()));
 		// Crear el builder de Producto
-		Producto.Builder productoBuilder = Producto.newBuilder().setCodigo(producto.getCodigo().toString())
+		Producto.Builder productoBuilder = Producto.newBuilder().setCodigo(producto.getCodigo())
 				.setNombre(producto.getNombre()).setTalle(producto.getTalle()).setFoto(producto.getFoto())
 				.setColor(producto.getColor());
 
@@ -51,7 +51,7 @@ public class GrpcProductoServiceImpl extends ProductoServiceImplBase {
 		// Convertir cada producto de la lista al objeto gRPC Producto y agregarlo a
 		// ProductoList
 		for (com.stockearte.tp1_grupo10.model.Producto producto : productosEncontrados) {
-			Producto grpcProducto = Producto.newBuilder().setCodigo(producto.getCodigo().toString())
+			Producto grpcProducto = Producto.newBuilder().setCodigo(producto.getCodigo())
 					.setNombre(producto.getNombre()).setTalle(producto.getTalle()).setFoto(producto.getFoto())
 					.setColor(producto.getColor()).build();
 
@@ -81,7 +81,7 @@ public class GrpcProductoServiceImpl extends ProductoServiceImplBase {
 		com.stockearte.tp1_grupo10.model.Producto productoCreado = productoService.add(producto);
 
 		// Construir el producto para retornar a gRPC
-		Producto grpcProducto = Producto.newBuilder().setCodigo(productoCreado.getCodigo().toString())
+		Producto grpcProducto = Producto.newBuilder().setCodigo(productoCreado.getCodigo())
 				.setNombre(productoCreado.getNombre()).setTalle(productoCreado.getTalle())
 				.setFoto(productoCreado.getFoto()).setColor(productoCreado.getColor()).build();
 
@@ -106,7 +106,7 @@ public class GrpcProductoServiceImpl extends ProductoServiceImplBase {
 				Long.valueOf(request.getCodigo()));
 
 		// Construir el producto actualizado para retornar a gRPC
-		Producto grpcProducto = Producto.newBuilder().setCodigo(productoActualizado.getCodigo().toString())
+		Producto grpcProducto = Producto.newBuilder().setCodigo(productoActualizado.getCodigo())
 				.setNombre(productoActualizado.getNombre()).setTalle(productoActualizado.getTalle())
 				.setFoto(productoActualizado.getFoto()).setColor(productoActualizado.getColor()).build();
 
@@ -114,15 +114,6 @@ public class GrpcProductoServiceImpl extends ProductoServiceImplBase {
 		responseObserver.onCompleted();
 	}
 
-	@Override
-	public void delete(ProductoCodigoRequest request, StreamObserver<Empty> responseObserver) {
-		// Eliminar el producto por su código
-		productoService.delete(Long.valueOf(request.getCodigo()));
-
-		// Completar la respuesta con un objeto vacío
-		responseObserver.onNext(Empty.newBuilder().build());
-		responseObserver.onCompleted();
-	}
 
 	public ProductoService getProductoService() {
 		return productoService;

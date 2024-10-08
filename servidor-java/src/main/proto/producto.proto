@@ -28,5 +28,4 @@ service ProductoService {
   rpc getOneById (ProductoCodigoRequest) returns (Producto);
   rpc getAll (google.protobuf.Empty) returns (ProductoList);
   rpc update (Producto) returns (Producto);
-  rpc delete (ProductoCodigoRequest) returns (google.protobuf.Empty);
 }
