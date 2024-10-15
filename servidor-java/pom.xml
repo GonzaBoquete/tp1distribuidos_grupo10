@@ -82,7 +82,15 @@
 			<groupId>wsdl4j</groupId>
 			<artifactId>wsdl4j</artifactId>
 		</dependency>
-
+		<dependency>
+			<groupId>jakarta.xml.bind</groupId>
+			<artifactId>jakarta.xml.bind-api</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.sun.xml.bind</groupId>
+			<artifactId>jaxb-impl</artifactId>
+			<scope>runtime</scope>
+		</dependency>
 	</dependencies>
 	<build>
 		<extensions>
@@ -129,25 +137,15 @@
 				</executions>
 				<configuration>
 					<outputDirectory>
-						${project.basedir}/src/main/java/com/stockearte/tp1_grupo10/soap</outputDirectory>
+						${project.basedir}/src/main/java</outputDirectory>
+					<clearOutputDir>false</clearOutputDir>
 					<sources>
-					<!-- Listar aca cada .xsd a mapear -->
+						<!-- Listar aca cada .xsd a mapear -->
 						<source>
-							${project.basedir}/src/main/resources/employee.xsd</source>
+							${project.basedir}/src/main/resources/xsd/</source>
 					</sources>
+					<packageName>com.stockearte.tp1_grupo10.soap.interfaces</packageName>
 				</configuration>
-				<dependencies>
-					<dependency>
-						<groupId>org.glassfish.jaxb</groupId>
-						<artifactId>jaxb-xjc</artifactId>
-						<version>4.0.2</version>
-					</dependency>
-					<dependency>
-						<groupId>com.sun.activation</groupId>
-						<artifactId>jakarta.activation</artifactId>
-						<version>1.2.2</version>
-					</dependency>
-				</dependencies>
 			</plugin>
 		</plugins>
 	</build>
