@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Cantidad de Stock</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Editar Cantidad de Stock</h1>
+        <form method="POST">
+            <label for="id">ID Stock:</label>
+            <input type="text" id="id" name="id" value="{{ stock_actual.id }}" readonly><br>
+
+            <label for="cantidad">Nueva Cantidad:</label>
+            <input type="number" id="cantidad" name="cantidad" value="{{ stock_actual.cantidad }}" required><br>
+
+            <button type="submit">Actualizar Cantidad</button>
+        </form>
+        <br>
+        <a href="{{ url_for('listar_stocks') }}"><button>Volver a la Lista de Stocks</button></a>
+    </div>
+</body>
+</html>

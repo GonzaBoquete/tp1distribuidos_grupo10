@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalle del Producto</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Detalle del Producto</h1>
+        <table>
+            <tr>
+                <th>Código</th>
+                <td>{{ producto.codigo }}</td>
+            </tr>
+            <tr>
+                <th>Nombre</th>
+                <td>{{ producto.nombre }}</td>
+            </tr>
+            <tr>
+                <th>Talle</th>
+                <td>{{ producto.talle }}</td>
+            </tr>
+            <tr>
+                <th>Foto</th>
+                <td>
+                    {% if producto.foto %}
+                        <img src="{{ producto.foto }}" alt="Foto de {{ producto.nombre }}" width="100">
+                    {% else %}
+                        No disponible
+                    {% endif %}
+                </td>
+            </tr>
+            <tr>
+                <th>Color</th>
+                <td>{{ producto.color }}</td>
+            </tr>
+        </table>
+        <a href="{{ url_for('listar_productos') }}"><button>Volver a la lista de productos</button></a>
+        
+
+        {% if session.usuario_rol == 'CASA_CENTRAL' %}
+            <a href="{{ url_for('editar_producto', codigo=producto.codigo) }}"><button>Editar Producto</button></a>
+        {% endif %}
+    </div>
+</body>
+</html>

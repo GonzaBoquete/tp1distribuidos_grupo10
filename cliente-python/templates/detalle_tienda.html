@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalle de la Tienda</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Detalle de la Tienda</h1>
+        <table>
+            <tr>
+                <th>Código</th>
+                <td>{{ tienda.codigo }}</td>
+            </tr>
+            <tr>
+                <th>Dirección</th>
+                <td>{{ tienda.direccion }}</td>
+            </tr>
+            <tr>
+                <th>Ciudad</th>
+                <td>{{ tienda.ciudad }}</td>
+            </tr>
+            <tr>
+                <th>Provincia</th>
+                <td>{{ tienda.provincia }}</td>
+            </tr>
+            <tr>
+                <th>Habilitada</th>
+                <td>{{ 'Sí' if tienda.habilitada else 'No' }}</td>
+            </tr>
+        </table>
+        
+        <a href="{{ url_for('listar_tiendas') }}"><button>Volver a la lista de tiendas</button></a>
+        <a href="{{ url_for('editar_tienda', codigo=tienda.codigo) }}"><button>Editar Tienda</button></a>
+        
+        {% if session.usuario_rol == 'CASA_CENTRAL' %}
+            <a href="{{ url_for('agregar_tienda') }}"><button>Agregar Tienda</button></a>
+        {% endif %}
+    </div>
+</body>
+</html>

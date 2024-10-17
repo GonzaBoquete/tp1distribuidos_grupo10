@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalle del Stock</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Detalle del Stock</h1>
+        <p><strong>ID:</strong> {{ stock.id }}</p>
+        <p><strong>Nombre Tienda:</strong> {{ stock.nombre_tienda }}</p>
+        <p><strong>Nombre Producto:</strong> {{ stock.nombre_producto }}</p>
+        <p><strong>Cantidad:</strong> {{ stock.cantidad }}</p>
+
+        {% if session.usuario_rol == 'CASA_CENTRAL' %}
+            <a href="{{ url_for('editar_stock', id=stock.id) }}">
+                <button>Editar Stock</button>
+            </a>
+        {% endif %}
+
+        {% if session.usuario_rol == 'TIENDA' %}
+            <a href="{{ url_for('editar_stock_cantidad', id=stock.id) }}">
+                <button>Editar Cantidad de Stock</button>
+            </a>
+        {% endif %}
+
+        {% if session.usuario_rol == 'CASA_CENTRAL' %}
+            <form action="{{ url_for('eliminar_stock', id=stock.id) }}" method="POST" style="display:inline;">
+                <button type="submit" onclick="return confirm('¿Estás seguro de que quieres eliminar este stock?');">Borrar</button>
+            </form>
+        {% endif %}
+
+        <br><br>
+        <a href="{{ url_for('listar_stocks') }}">
+            <button>Volver a la Lista de Stocks</button>
+        </a>
+    </div>
+</body>
+</html>

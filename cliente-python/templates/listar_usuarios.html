@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Usuarios</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Lista de Usuarios</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre Usuario</th>
+                    <th>Nombre</th>
+                    <th>Apellido</th>
+                    <th>Rol</th>
+                    <th>Habilitado</th>
+                    <th>Acciones</th> <!-- Nueva columna para los botones -->
+                </tr>
+            </thead>
+            <tbody>
+                {% for usuario in usuarios %}
+                <tr>
+                    <td>{{ usuario.id }}</td>
+                    <td>{{ usuario.nombreUsuario }}</td>
+                    <td>{{ usuario.nombre }}</td>
+                    <td>{{ usuario.apellido }}</td>
+                    <td>{{ usuario.rol }}</td>
+                    <td>{{ 'Sí' if usuario.habilitado else 'No' }}</td>
+                    <td>
+                        <a href="{{ url_for('ver_usuario', id=usuario.id) }}">
+                            <button>Ver Detalle</button>
+                        </a>
+                    </td> <!-- Botón para ver el detalle -->
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <a href="{{ url_for('home') }}"><button>Volver al Home</button></a>
+    </div>
+</body>
+</html>

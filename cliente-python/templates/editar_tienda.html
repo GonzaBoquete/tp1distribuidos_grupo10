@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Tienda</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Editar Tienda</h1>
+        <form action="{{ url_for('editar_tienda', codigo=tienda.codigo) }}" method="POST">
+            <div>
+                <label for="codigo">Código:</label>
+                <input type="text" id="codigo" name="codigo" value="{{ tienda.codigo }}" readonly>
+            </div>
+            <div>
+                <label for="direccion">Dirección:</label>
+                <input type="text" id="direccion" name="direccion" value="{{ tienda.direccion }}" required>
+            </div>
+            <div>
+                <label for="ciudad">Ciudad:</label>
+                <input type="text" id="ciudad" name="ciudad" value="{{ tienda.ciudad }}" required>
+            </div>
+            <div>
+                <label for="provincia">Provincia:</label>
+                <input type="text" id="provincia" name="provincia" value="{{ tienda.provincia }}" required>
+            </div>
+            <div>
+                <label for="habilitada">Habilitada:</label>
+                <input type="checkbox" id="habilitada" name="habilitada" {% if tienda.habilitada %}checked{% endif %}>
+            </div>
+            <button type="submit">Actualizar Tienda</button>
+        </form>
+        <br>
+        <a href="{{ url_for('detalle_tienda', codigo=tienda.codigo) }}">
+            <button>Volver a Detalle de Tienda</button>
+        </a>
+    </div>
+</body>
+</html>

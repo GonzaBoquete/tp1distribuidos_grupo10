@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Productos</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Lista de Productos</h1>
+        
+        <!-- Botón para agregar un nuevo producto -->
+        <a href="{{ url_for('agregar_producto') }}">
+            <button>Agregar Producto</button>
+        </a>
+        
+        <table>
+            <thead>
+                <tr>
+                    <th>Código</th>
+                    <th>Nombre</th>
+                    <th>Talle</th>
+                    <th>Foto</th>
+                    <th>Color</th>
+                    <th>Acciones</th> <!-- Nueva columna para los botones -->
+                </tr>
+            </thead>
+            <tbody>
+                {% for producto in productos %}
+                <tr>
+                    <td>{{ producto.codigo }}</td>
+                    <td>{{ producto.nombre }}</td>
+                    <td>{{ producto.talle }}</td>
+                    <td><img src="{{ producto.foto }}" alt="Foto de {{ producto.nombre }}" width="50"></td>
+                    <td>{{ producto.color }}</td>
+                    <td>
+                        <a href="{{ url_for('detalle_producto', codigo=producto.codigo) }}">
+                            <button>Ver Detalle</button>
+                        </a>
+                    </td> <!-- Botón para ver el detalle -->
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <a href="{{ url_for('home') }}"><button>Volver al Home</button></a>
+    </div>
+</body>
+</html>

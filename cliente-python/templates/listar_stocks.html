@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Stocks</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Lista de Stocks</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>ID Tienda</th>
+                    <th>ID Producto</th>
+                    <th>Cantidad</th>
+                    <th>Acciones</th> <!-- Nueva columna para los botones -->
+                </tr>
+            </thead>
+            <tbody>
+                {% for stock in stocks %}
+                <tr>
+                    <td>{{ stock.id }}</td>
+                    <td>{{ stock.idTienda }}</td>
+                    <td>{{ stock.idProducto }}</td>
+                    <td>{{ stock.cantidad }}</td>
+                    <td>
+                        <a href="{{ url_for('detalle_stock', codigo=stock.id) }}">
+                            <button>Ver Detalle</button>
+                        </a>
+                        {% if session.usuario_rol == 'CASA_CENTRAL' %}
+                        <form action="{{ url_for('eliminar_stock', id=stock.id) }}" method="POST" style="display:inline;">
+                            <button type="submit" onclick="return confirm('¿Estás seguro de que quieres eliminar este stock?');">Borrar</button>
+                        </form>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <a href="{{ url_for('home') }}"><button>Volver al Home</button></a>
+        <a href="{{ url_for('agregar_stock') }}"><button>Agregar Stock</button></a>
+    </div>
+</body>
+</html>

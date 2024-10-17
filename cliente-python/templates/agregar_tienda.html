@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agregar Tienda</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Agregar Nueva Tienda</h1>
+        <form action="{{ url_for('agregar_tienda') }}" method="POST">
+            <div>
+                <label for="codigo">Código:</label>
+                <input type="text" id="codigo" name="codigo" required>
+            </div>
+            <div>
+                <label for="direccion">Dirección:</label>
+                <input type="text" id="direccion" name="direccion" required>
+            </div>
+            <div>
+                <label for="ciudad">Ciudad:</label>
+                <input type="text" id="ciudad" name="ciudad" required>
+            </div>
+            <div>
+                <label for="provincia">Provincia:</label>
+                <input type="text" id="provincia" name="provincia" required>
+            </div>
+            <div>
+                <label for="habilitada">Habilitada:</label>
+                <select id="habilitada" name="habilitada" required>
+                    <option value="true">Sí</option>
+                    <option value="false">No</option>
+                </select>
+            </div>
+            <button type="submit">Agregar Tienda</button>
+        </form>
+        <br>
+        <a href="{{ url_for('listar_tiendas') }}">
+            <button>Volver a la Lista de Tiendas</button>
+        </a>
+    </div>
+</body>
+</html>

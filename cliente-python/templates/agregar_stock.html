@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agregar Stock</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Agregar Stock</h1>
+        <form method="POST">
+            <div>
+                <label for="tienda">ID Tienda:</label>
+                <input type="text" id="tienda" name="tienda" required>
+            </div>
+            <div>
+                <label for="producto_codigo">ID Producto:</label>
+                <input type="text" id="producto_codigo" name="producto_codigo" required>
+            </div>
+            <div>
+                <label for="cantidad">Cantidad:</label>
+                <input type="number" id="cantidad" name="cantidad" required>
+            </div>
+            <div>
+                <button type="submit">Agregar Stock</button>
+            </div>
+        </form>
+        <a href="{{ url_for('listar_stocks') }}"><button>Volver a la lista de Stocks</button></a>
+    </div>
+</body>
+</html>

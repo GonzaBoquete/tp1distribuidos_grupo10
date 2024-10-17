@@ -23,8 +23,9 @@ class ProductoCliente:
         return self.stub.getOneById(codigo_request)
 
     def get_all_productos(self):
-        return self.stub.getAll(empty_pb2.Empty())
-
+        response = self.stub.getAll(empty_pb2.Empty())
+        return response.productos
+    
     def update_producto(self, codigo, nombre, talle, foto, color):
         producto_actualizado = proto.producto_pb2.Producto(
             codigo=int(codigo),
@@ -34,10 +35,6 @@ class ProductoCliente:
             color=color
         )
         return self.stub.update(producto_actualizado)
-
-    def delete_producto(self, codigo):
-        codigo_request = proto.producto_pb2.ProductoCodigoRequest(codigo=codigo)
-        return self.stub.delete(codigo_request)
 
     def close(self):
         self.channel.close()

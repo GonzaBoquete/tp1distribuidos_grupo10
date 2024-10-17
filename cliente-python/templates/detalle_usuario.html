@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalles del Usuario</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Detalles del Usuario</h1>
+        <table>
+            <tr>
+                <th>Nombre de Usuario</th>
+                <td>{{ usuario.nombreUsuario }}</td>
+            </tr>
+            <tr>
+                <th>Nombre</th>
+                <td>{{ usuario.nombre }}</td>
+            </tr>
+            <tr>
+                <th>Apellido</th>
+                <td>{{ usuario.apellido }}</td>
+            </tr>
+            <tr>
+                <th>Tienda</th>
+                <td>{{ usuario.idTienda }}</td> <!-- Puedes mostrar el nombre de la tienda si lo tienes -->
+            </tr>
+            <tr>
+                <th>Rol</th>
+                <td>{{ usuario.rol }}</td>
+            </tr>
+            <tr>
+                <th>Habilitado</th>
+                <td>{{ 'Sí' if usuario.habilitado else 'No' }}</td>
+            </tr>
+        </table>
+        
+        <a href="{{ url_for('editar_usuario', id=usuario.id) }}">
+            <button>Editar Usuario</button>
+        </a>
+        
+        <a href="{{ url_for('listar_usuarios') }}">
+            <button>Volver a la lista de usuarios</button>
+        </a>
+    </div>
+</body>
+</html>

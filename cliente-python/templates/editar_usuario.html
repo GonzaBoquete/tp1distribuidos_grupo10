@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Usuario</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Editar Usuario</h1>
+        <form method="POST">
+            <label for="nombre_usuario">Nombre de Usuario:</label>
+            <input type="text" id="nombre_usuario" name="nombre_usuario" value="{{ usuario.nombreUsuario }}" required>
+            
+            <label for="contrasena">Contraseña:</label>
+            <input type="password" id="contrasena" name="contrasena" placeholder="Dejar vacío para no cambiar">
+            
+            <label for="tienda">Tienda:</label>
+            <input type="text" id="tienda" name="tienda" value="{{ usuario.idTienda }}" required>
+            
+            <label for="nombre">Nombre:</label>
+            <input type="text" id="nombre" name="nombre" value="{{ usuario.nombre }}" required>
+            
+            <label for="apellido">Apellido:</label>
+            <input type="text" id="apellido" name="apellido" value="{{ usuario.apellido }}" required>
+            
+            <label for="rol">Rol:</label>
+            <select id="rol" name="rol" required>
+                <option value="CASA_CENTRAL" {% if usuario.rol == 'CASA_CENTRAL' %}selected{% endif %}>Casa Central</option>
+                <option value="TIENDA" {% if usuario.rol == 'TIENDA' %}selected{% endif %}>Tienda</option>
+                <!-- Agrega más roles según sea necesario -->
+            </select>
+            
+            <label for="habilitado">Habilitado:</label>
+            <input type="checkbox" id="habilitado" name="habilitado" {% if usuario.habilitado %}checked{% endif %}>
+
+            <button type="submit">Actualizar Usuario</button>
+        </form>
+        <a href="{{ url_for('ver_usuario', id=usuario.id) }}"><button>Volver a los Detalles del Usuario</button></a>
+    </div>
+</body>
+</html>
