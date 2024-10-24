@@ -9,6 +9,9 @@
 <body>
     <div class="container">
         <h1>Lista de Usuarios</h1>
+        <a href="{{ url_for('agregar_usuario') }}">
+            <button>Agregar Usuario</button>
+        </a>
         <table>
             <thead>
                 <tr>
@@ -18,7 +21,7 @@
                     <th>Apellido</th>
                     <th>Rol</th>
                     <th>Habilitado</th>
-                    <th>Acciones</th> <!-- Nueva columna para los botones -->
+                    <th>Acciones</th>
                 </tr>
             </thead>
             <tbody>
@@ -34,7 +37,7 @@
                         <a href="{{ url_for('ver_usuario', id=usuario.id) }}">
                             <button>Ver Detalle</button>
                         </a>
-                    </td> <!-- Botón para ver el detalle -->
+                    </td>
                 </tr>
                 {% endfor %}
             </tbody>

@@ -13,6 +13,11 @@ if __name__ == '__main__':
     tienda = TiendaCliente()
     usuario = UsuarioCliente()
 
+
+     # Ejemplo: Actualizar un usuario
+    usuario_actualizado = usuario.update_usuario(13, 'jperez', 'nueva_contrasena', '003', 'Juan', 'Pérez', 'TIENDA', True)
+    print(f'Usuario actualizado: {usuario_actualizado}')
+
     # Ejemplo: Agregar un producto
     producto_agregado = producto.add_producto('124', 'Remera', 'M', 'url_de_la_foto', 'Rojo')
     print(f'Producto agregado: {producto_agregado}')

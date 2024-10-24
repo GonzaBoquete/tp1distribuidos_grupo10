@@ -60,11 +60,16 @@ public class GrpcUsuarioServiceImpl extends UsuarioServiceImplBase {
 		// Llamar al servicio para obtener un usuario por ID
 		com.stockearte.tp1_grupo10.model.Usuario usuario = usuarioService.getOneById(request.getId());
 
-		// Mapear el resultado al objeto gRPC
-		Usuario grpcUsuario = Usuario.newBuilder().setId(usuario.getId()).setNombreUsuario(usuario.getNombreUsuario())
-				.setContrasena(usuario.getContrasena()).setNombre(usuario.getNombre())
-				.setApellido(usuario.getApellido()).setRol(usuario.getRol().name())
-				.setHabilitado(usuario.isHabilitado()).build();
+		Usuario grpcUsuario = Usuario.newBuilder()
+	            .setId(usuario.getId())
+	            .setNombreUsuario(usuario.getNombreUsuario())
+	            .setContrasena(usuario.getContrasena())
+	            .setNombre(usuario.getNombre())
+	            .setApellido(usuario.getApellido())
+	            .setRol(usuario.getRol().name())
+	            .setHabilitado(usuario.isHabilitado())
+	            .setIdTienda(usuario.getTienda().getCodigo())  // Asegúrate de que esto esté correctamente definido
+	            .build();
 
 		// Enviar la respuesta
 		responseObserver.onNext(grpcUsuario);
@@ -105,6 +110,7 @@ public class GrpcUsuarioServiceImpl extends UsuarioServiceImplBase {
 	    usuarioExistente.setApellido(request.getApellido());
 	    usuarioExistente.setRol(Rol.valueOf(request.getRol()));
 	    usuarioExistente.setHabilitado(request.getHabilitado());
+	    usuarioExistente.setTienda(tiendaService.getOneById(request.getIdTienda()));
 
 		// Llamar al servicio para actualizar el usuario
 	    com.stockearte.tp1_grupo10.model.Usuario usuarioActualizado = usuarioService.update(usuarioExistente,usuarioExistente.getId());
@@ -118,6 +124,7 @@ public class GrpcUsuarioServiceImpl extends UsuarioServiceImplBase {
                 .setApellido(usuarioActualizado.getApellido())
                 .setRol(usuarioActualizado.getRol().name())
                 .setHabilitado(usuarioActualizado.isHabilitado())
+                .setIdTienda(usuarioActualizado.getTienda().getCodigo())
                 .build();
 
         // Enviar la respuesta

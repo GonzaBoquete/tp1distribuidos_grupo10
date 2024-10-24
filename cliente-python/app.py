@@ -155,8 +155,11 @@ def listar_tiendas():
 @app.route('/tienda/<int:codigo>')
 @require_login
 def detalle_tienda(codigo):
-    tienda = tienda_cliente.get_tienda(codigo)
+    tienda = tienda_cliente.get_tienda(str(codigo))
+    if tienda is None:
+        return "Tienda no encontrada", 404
     return render_template('detalle_tienda.html', tienda=tienda)
+
 
 @app.route('/tienda/agregar', methods=['GET', 'POST'])
 @require_login
@@ -166,26 +169,28 @@ def agregar_tienda():
         direccion = request.form['direccion']
         ciudad = request.form['ciudad']
         provincia = request.form['provincia']
-        habilitada = request.form['habilitada']
+        habilitada = request.form.get('habilitada') == 'on' 
+        
         tienda_cliente.add_tienda(codigo, direccion, ciudad, provincia, habilitada)
         return redirect(url_for('listar_tiendas'))
     return render_template('agregar_tienda.html')
 
+
 @app.route('/tienda/editar/<int:codigo>', methods=['GET', 'POST'])
 @require_login
-def editar_tienda(codigo):
+def editar_tienda(codigo):  
     # Obtener los detalles de la tienda existente
-    tienda_actual = tienda_cliente.get_tienda(codigo)
+    tienda_actual = tienda_cliente.get_tienda(str(codigo))
     if request.method == 'POST':
-        # Obtener los datos del formulario
         direccion = request.form['direccion']
         ciudad = request.form['ciudad']
         provincia = request.form['provincia']
         habilitada = request.form.get('habilitada') == 'on'  # Convierte a booleano
-        tienda_cliente.update_tienda(codigo, direccion, ciudad, provincia, habilitada)
-        return redirect(url_for('detalle_tienda', codigo=codigo))  # Redirigir a la vista de la tienda
+        tienda_cliente.update_tienda(str(codigo), direccion, ciudad, provincia, habilitada)
+        return redirect(url_for('detalle_tienda', codigo=str(codigo)))  # Redirigir a la vista de la tienda
 
     return render_template('editar_tienda.html', tienda=tienda_actual)
+
 
 # Rutas para Usuarios
 @app.route('/usuarios')
@@ -205,7 +210,7 @@ def agregar_usuario():
         apellido = request.form['apellido']
         rol = request.form['rol']
         habilitado = request.form['habilitado']
-        usuario_cliente.add_usuario(nombre_usuario, contrasena, tienda, nombre, apellido, rol, habilitado)
+        usuario_cliente.add_usuario(nombre_usuario, contrasena, str(tienda), nombre, apellido, rol, habilitado)
         return redirect(url_for('listar_usuarios'))
     return render_template('agregar_usuario.html')
 
@@ -231,24 +236,30 @@ def ver_usuario(id):
     usuario = usuario_cliente.get_usuario(id)
     if not usuario:
         return "Usuario no encontrado", 404
-    return render_template('detalle_usuario.html', usuario=usuario)
+
+    # Obtener la tienda asociada al usuario
+    tienda = tienda_cliente.get_tienda(usuario.idTienda)
+    
+    return render_template('detalle_usuario.html', usuario=usuario, tienda=tienda)
+
+
 
 @app.route('/usuario/editar/<int:id>', methods=['GET', 'POST'])
 @require_login
 def editar_usuario(id):
     usuario_actual = usuario_cliente.get_usuario(id)
+    tiendas = tienda_cliente.get_all_tiendas()  # Obtener las tiendas disponibles
     if request.method == 'POST':
         nombre_usuario = request.form['nombre_usuario']
         contrasena = request.form['contrasena']
-        tienda = request.form['tienda']
+        tienda = str(request.form['tienda'])
         nombre = request.form['nombre']
         apellido = request.form['apellido']
         rol = request.form['rol']
         habilitado = request.form.get('habilitado') == 'on'
         usuario_cliente.update_usuario(id, nombre_usuario, contrasena, tienda, nombre, apellido, rol, habilitado)
         return redirect(url_for('ver_usuario', id=id))
-
-    return render_template('editar_usuario.html', usuario=usuario_actual)
+    return render_template('editar_usuario.html', usuario=usuario_actual, tiendas=tiendas.tiendas)
 
 @app.route('/usuario/buscar', methods=['GET', 'POST'])
 @require_login
