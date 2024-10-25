@@ -22,6 +22,13 @@ def require_login(f):
         return f(*args, **kwargs)
     return decorated_function
 
+@app.teardown_request
+def cleanup_session(exception=None):
+    # Cerrar sesión si hay un usuario en la sesión
+    if 'usuario' in session:
+        session.pop('usuario', None)
+        session.pop('usuario_rol', None)
+
 @app.route('/')
 @require_login
 def home():
@@ -236,8 +243,6 @@ def ver_usuario(id):
     usuario = usuario_cliente.get_usuario(id)
     if not usuario:
         return "Usuario no encontrado", 404
-
-    # Obtener la tienda asociada al usuario
     tienda = tienda_cliente.get_tienda(usuario.idTienda)
     
     return render_template('detalle_usuario.html', usuario=usuario, tienda=tienda)
@@ -271,7 +276,7 @@ def buscar_usuario():
         return render_template('resultado_busqueda_usuario.html', usuarios=usuarios)
     return render_template('buscar_usuario.html')
 
-@app.route('/logout')
+@app.route('/logout', methods=['POST'])
 @require_login
 def logout():
     session.pop('usuario', None)  # Elimina el usuario de la sesión
