@@ -1,0 +1,14 @@
+/* General styles */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #c6c6c6;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+.marcador{
+    list-style: none;
+    padding-left: 0;
+    margin-top: 5%;
+}
