@@ -55,6 +55,10 @@ class UsuarioCliente:
     def buscar_usuario(self, nombre, tienda):
         busqueda_request = proto.usuario_pb2.UsuarioBusquedaRequest(nombre=nombre, idTienda=int(tienda))
         return self.stub.buscarUsuario(busqueda_request)
+    
+    def get_usuarios_por_tienda(self, id_tienda):
+        request = proto.usuario_pb2.UsuarioBusquedaRequest(idTienda=int(id_tienda))
+        return self.stub.buscarUsuario(request)
 
     def close(self):
         self.channel.close()

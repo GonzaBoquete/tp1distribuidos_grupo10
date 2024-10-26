@@ -87,7 +87,8 @@ public class GrpcUsuarioServiceImpl extends UsuarioServiceImplBase {
 			Usuario grpcUsuario = Usuario.newBuilder().setId(usuario.getId())
 					.setNombreUsuario(usuario.getNombreUsuario()).setContrasena(usuario.getContrasena())
 					.setNombre(usuario.getNombre()).setApellido(usuario.getApellido()).setRol(usuario.getRol().name())
-					.setHabilitado(usuario.isHabilitado()).build();
+					.setHabilitado(usuario.isHabilitado())
+					.setIdTienda(usuario.getTienda().getCodigo()).build();
 			usuarioListBuilder.addUsuarios(grpcUsuario);
 		}
 
@@ -148,6 +149,7 @@ public class GrpcUsuarioServiceImpl extends UsuarioServiceImplBase {
 		                .setApellido(usuario.getApellido())
 		                .setRol(usuario.getRol().name())
 		                .setHabilitado(usuario.isHabilitado())
+		                .setIdTienda(usuario.getTienda().getCodigo())
 		                .build();
 
 		        // Enviar la respuesta
@@ -162,9 +164,17 @@ public class GrpcUsuarioServiceImpl extends UsuarioServiceImplBase {
 
 	@Override
 	public void buscarUsuario(UsuarioBusquedaRequest request, StreamObserver<UsuarioList> responseObserver) {
-		// Llamar al servicio para buscar un usuario
-		List<com.stockearte.tp1_grupo10.model.Usuario> usuarios = usuarioService.buscarUsuario(request.getNombre(),
-				getTiendaService().getOneById(request.getIdTienda()));
+		List<com.stockearte.tp1_grupo10.model.Usuario> usuarios;
+	    
+	    // Decide el método a utilizar según si se proporcionó un nombre
+	    if (request.getNombre().isEmpty()) {
+	        usuarios = usuarioService.buscarUsuario(
+					getTiendaService().getOneById(request.getIdTienda()));
+	    } else {
+	        usuarios = usuarioService.buscarUsuario(request.getNombre(),
+					getTiendaService().getOneById(request.getIdTienda()));
+	    }
+		
 
 		// Mapear la lista de usuarios a la respuesta gRPC
 	    UsuarioList.Builder usuarioListBuilder = UsuarioList.newBuilder();

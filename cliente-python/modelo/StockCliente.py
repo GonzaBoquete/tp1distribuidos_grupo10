@@ -14,7 +14,13 @@ class StockCliente:
             idProducto=int(producto_codigo),
             cantidad=cantidad
         )
-        return self.stub.add(nuevo_stock)
+        try:
+            return self.stub.add(nuevo_stock)
+        except grpc.RpcError as e:
+            print(f"gRPC error: {e.details()}")
+            print(f"Status code: {e.code()}")
+            return None
+
 
     def get_stock(self, id):
         id_request = proto.stock_pb2.StockIdRequest(id=id)

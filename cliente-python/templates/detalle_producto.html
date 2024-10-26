@@ -60,5 +60,35 @@
             <a href="{{ url_for('editar_producto', codigo=producto.codigo) }}"><button>Editar Producto</button></a>
         {% endif %}
     </div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Disponible en tiendas:</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for tienda in tiendas_ids %}
+                <tr>
+                    <td>{{ tienda }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <div class="container mt-4">
+        <h2>Agregar Stock a Tienda</h2>
+        <form action="{{ url_for('agregar_stock_producto', codigo=producto.codigo) }}" method="post">
+            <div class="mb-3">
+                <label for="tienda" class="form-label">Seleccionar Tienda</label>
+                <select class="form-select" id="tienda" name="tienda" required>
+                    {% for tienda in tiendas %}
+                    <option value="{{ tienda.codigo }}">{{ tienda.codigo }}</option>
+                {% endfor %}
+                </select>
+            </div>
+            <input type="hidden" name="producto_codigo" value="{{ producto.codigo }}">
+            <button type="submit" class="btn btn-primary">Agregar Stock</button>
+        </form>
+    </div>
+
 </body>
 </html>

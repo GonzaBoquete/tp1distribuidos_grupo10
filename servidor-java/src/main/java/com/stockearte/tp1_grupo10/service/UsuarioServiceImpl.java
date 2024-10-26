@@ -92,6 +92,11 @@ public class UsuarioServiceImpl implements UsuarioService {
 	public List<Usuario> buscarUsuario(String nombre) {
 		return usuarioRepository.findByNombre(nombre);
 	}
+	
+	@Override
+	public List<Usuario> buscarUsuario(Tienda tienda) {
+	    return usuarioRepository.findByTienda(tienda); 
+	}
 
 	public TiendaService getTiendaService() {
 		return tiendaService;

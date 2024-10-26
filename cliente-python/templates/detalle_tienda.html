@@ -51,9 +51,32 @@
         <a href="{{ url_for('listar_tiendas') }}"><button>Volver a la lista de tiendas</button></a>
         <a href="{{ url_for('editar_tienda', codigo=tienda.codigo) }}"><button>Editar Tienda</button></a>
         
-        {% if session.usuario_rol == 'CASA_CENTRAL' %}
-            <a href="{{ url_for('agregar_tienda') }}"><button>Agregar Tienda</button></a>
-        {% endif %}
     </div>
+    <h2>Usuarios asociados a la tienda</h2>
+<table>
+    <thead>
+        <tr>
+            <th>Usuario</th>
+            <th>Nombre</th>
+            <th>Apellido</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% if usuarios %}
+            {% for usuario in usuarios %}
+            <tr>
+                <td>{{ usuario.nombreUsuario }}</td>
+                <td>{{ usuario.nombre }}</td>
+                <td>{{ usuario.apellido }}</td>
+            </tr>
+            {% endfor %}
+        {% else %}
+            <tr>
+                <td colspan="3" class="text-center">No hay usuarios asociados a la tienda</td>
+            </tr>
+        {% endif %}
+    </tbody>
+</table>
+
 </body>
 </html>
