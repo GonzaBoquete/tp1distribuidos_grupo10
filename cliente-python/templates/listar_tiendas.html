@@ -39,15 +39,13 @@
                     </select>
                 </div>
                 <div class="col-md-4">
-                    <button type="submit" class="btn btn-success">Filtrar</button>
+                    <button type="submit" class="btn btn-primary">Filtrar</button>
                 </div>
             </div>
         </form>
 
         <a href="{{ url_for('home') }}" class="btn btn-secondary mb-3">Volver al Home</a>     
-        {% if session.usuario_rol == 'CASA_CENTRAL' %}
-            <a href="{{ url_for('agregar_tienda') }}" class="btn btn-primary mb-3">Agregar Tienda</a>
-        {% endif %}
+        <a href="{{ url_for('agregar_tienda') }}" class="btn btn-success mb-3">Agregar Tienda</a>
 
         <table class="table">
             <thead>
@@ -70,10 +68,10 @@
                     <td>{{ 'Sí' if tienda.habilitada else 'No' }}</td>
                     <td>
                         <a href="{{ url_for('detalle_tienda', codigo=tienda.codigo) }}">
-                            <button class="btn btn-info">Ver Detalle</button>
+                            <button class="btn btn-warning">Ver Detalle</button>
                         </a>
                         <form action="{{ url_for('cambiar_estado', codigo=tienda.codigo) }}" method="post" style="display:inline;">
-                            <button type="submit" class="btn btn-warning">
+                            <button type="submit" class="btn btn-danger">
                                 {{ 'Deshabilitar' if tienda.habilitada else 'Habilitar' }}
                             </button>
                         </form>

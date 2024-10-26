@@ -26,32 +26,32 @@
     <div class="container">
         <h1>Editar Tienda</h1>
         <form action="{{ url_for('editar_tienda', codigo=tienda.codigo) }}" method="POST">
-            <div>
-                <label for="codigo">Código:</label>
-                <input type="text" id="codigo" name="codigo" value="{{ tienda.codigo }}" readonly>
+            <div class="input-group mb-3">
+                <label class="input-group-text" for="codigo">Código:</label>
+                <input class="form-control" type="text" id="codigo" name="codigo" value="{{ tienda.codigo }}" readonly>
             </div>
-            <div>
-                <label for="direccion">Dirección:</label>
-                <input type="text" id="direccion" name="direccion" value="{{ tienda.direccion }}" required>
+            <div class="input-group mb-3">
+                <label class="input-group-text" for="direccion">Dirección:</label>
+                <input class="form-control" type="text" id="direccion" name="direccion" value="{{ tienda.direccion }}" required>
             </div>
-            <div>
-                <label for="ciudad">Ciudad:</label>
-                <input type="text" id="ciudad" name="ciudad" value="{{ tienda.ciudad }}" required>
+            <div class="input-group mb-3">
+                <label class="input-group-text" for="ciudad">Ciudad:</label>
+                <input class="form-control" type="text" id="ciudad" name="ciudad" value="{{ tienda.ciudad }}" required>
             </div>
-            <div>
-                <label for="provincia">Provincia:</label>
-                <input type="text" id="provincia" name="provincia" value="{{ tienda.provincia }}" required>
+            <div class="input-group mb-3">
+                <label class="input-group-text" for="provincia">Provincia:</label>
+                <input class="form-control" type="text" id="provincia" name="provincia" value="{{ tienda.provincia }}" required>
             </div>
-            <div>
-                <label for="habilitada">Habilitada:</label>
-                <input type="checkbox" id="habilitada" name="habilitada" {% if tienda.habilitada %}checked{% endif %}>
-            </div>
-            <button type="submit">Actualizar Tienda</button>
+            <div class="form-check form-switch ">
+                <input class="form-check-input" type="checkbox" id="habilitada" name="habilitada" {% if tienda.habilitada %}checked{% endif %}>
+                <label class="form-check-label" for="habilitada">Habilitada</label>
+                </div>
+
+            <a href="{{ url_for('detalle_tienda', codigo=tienda.codigo) }}" class="btn btn-secondary mb-3 mt-2 me-2">Volver a detalles</a>
+            <button type="submit" class="btn btn-success mb-3 mt-2">Actualizar Tienda</button>
         </form>
         <br>
-        <a href="{{ url_for('detalle_tienda', codigo=tienda.codigo) }}">
-            <button>Volver a Detalle de Tienda</button>
-        </a>
+        
     </div>
 </body>
 </html>

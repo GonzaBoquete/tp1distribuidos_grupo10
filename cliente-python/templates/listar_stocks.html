@@ -45,7 +45,8 @@
             </div>
             <button type="submit" class="btn btn-primary mt-2">Filtrar</button>
         </form>
-        
+        <a href="{{ url_for('home') }}"><button class="btn btn-secondary mb-3">Volver al Home</button></a>
+        <a href="{{ url_for('agregar_stock') }}"><button class="btn btn-success mb-3">Agregar Stock</button></a>
 
         <table class="table table-striped">
             <thead>
@@ -73,7 +74,7 @@
                         <td>{{ stock.cantidad }}</td>
                         <td>
                             <a href="{{ url_for('detalle_stock', codigo=stock.id) }}">
-                                <button class="btn btn-info">Ver Detalle</button>
+                                <button class="btn btn-warning">Ver Detalle</button>
                             </a>
                             {% if session.usuario_rol == 'CASA_CENTRAL' %}
                             <form action="{{ url_for('eliminar_stock', id=stock.id) }}" method="POST" style="display:inline;">
@@ -86,8 +87,7 @@
                 {% endif %}
             </tbody>
         </table>
-        <a href="{{ url_for('home') }}"><button class="btn btn-secondary">Volver al Home</button></a>
-        <a href="{{ url_for('agregar_stock') }}"><button class="btn btn-primary">Agregar Stock</button></a>
+        
     </div>
 </body>
 </html>

@@ -25,16 +25,16 @@
         </nav>
       </header>
     <div class="container text-center ">
-        <h1>Bienvenido</h1>
+        <h1>Bienvenido {{session.usuario}}</h1>
         <h2 class ="mb-2">Selecciona una opción para continuar:</h2>
         <ul class="marcador">
             {% if session.usuario_rol == 'CASA_CENTRAL' %}
-            <li><a href="{{ url_for('listar_tiendas') }}"><button class="btn btn-danger m-1">Listar Tiendas</button></a></li>
-            <li><a href="{{ url_for('listar_usuarios') }}"><button class="btn btn-danger m-1">Listar Usuarios</button></a></li>
-            <li><a href="{{ url_for('listar_productos') }}"><button class="btn btn-danger m-1">Listar Productos</button></a></li>
+            <li><a href="{{ url_for('listar_tiendas') }}"><button class="btn btn-danger m-1 btn-lg">Ver Tiendas</button></a></li>
+            <li><a href="{{ url_for('listar_usuarios') }}"><button class="btn btn-danger m-1 btn-lg">Ver Usuarios</button></a></li>
+            <li><a href="{{ url_for('listar_productos') }}"><button class="btn btn-danger m-1 btn-lg">Ver Productos</button></a></li>
             {% endif %}
             {% if session.usuario_rol == 'TIENDA' %}
-            <li><a href="{{ url_for('listar_stocks') }}"><button class="btn btn-danger m-1">Listar Stock</button></a></li>
+            <li><a href="{{ url_for('listar_stocks') }}"><button class="btn btn-danger m-1 btn-lg">Ver Stock</button></a></li>
             {% endif %}
             
         </ul>

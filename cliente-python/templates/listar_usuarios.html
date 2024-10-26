@@ -37,10 +37,11 @@
                     <input type="text" name="idTienda" class="form-control" placeholder="ID Tienda" value="{{ request.args.get('idTienda', '') }}">
                 </div>
                 <div class="col-md-4">
-                    <button type="submit" class="btn btn-primary mt-2">Filtrar</button>
+                    <button type="submit" class="btn btn-primary">Filtrar</button>
                 </div>
             </div>
         </form>
+        <a href="{{ url_for('home') }}"><button class="btn btn-secondary mb-3">Volver al Home</button></a>
 
         <a href="{{ url_for('agregar_usuario') }}">
             <button class="btn btn-success mb-3">Agregar Usuario</button>
@@ -71,14 +72,13 @@
                     <td>{{ 'Sí' if usuario.habilitado else 'No' }}</td>
                     <td>
                         <a href="{{ url_for('ver_usuario', id=usuario.id) }}">
-                            <button>Ver Detalle</button>
+                            <button class="btn btn-warning">Ver Detalle</button>
                         </a>
                     </td>
                 </tr>
                 {% endfor %}
             </tbody>
         </table>
-        <a href="{{ url_for('home') }}"><button class="btn btn-secondary">Volver al Home</button></a>
-    </div>
+         </div>
 </body>
 </html>
