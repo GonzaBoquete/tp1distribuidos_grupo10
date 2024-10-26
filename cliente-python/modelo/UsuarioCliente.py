@@ -20,8 +20,12 @@ class UsuarioCliente:
                 habilitado=habilitado
             )
             return self.stub.add(nuevo_usuario)
-        except:
-            print("El usuario ya existe")
+        except grpc.RpcError as e:
+            # Verificar si la excepción es del tipo "usuario ya existe"
+            if e.code() == grpc.StatusCode.ALREADY_EXISTS:
+                print("El usuario ya existe")
+            else:
+                print(f"Ocurrió un error al agregar el usuario: {e}")
             return None
 
     def get_usuario(self, id):

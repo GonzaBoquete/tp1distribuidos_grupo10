@@ -27,6 +27,8 @@
     <div class="container">
         <h1>Lista de Productos</h1>
         
+       
+
         <!-- Formulario de Filtro -->
         <form method="GET" action="{{ url_for('listar_productos') }}" class="mb-4">
             <div class="row">
@@ -45,11 +47,9 @@
             </div>
             <button type="submit" class="btn btn-primary mt-2">Filtrar</button>
         </form>
+        <a href="{{ url_for('home') }}" class="btn btn-secondary mb-3">Volver al Home</a>
+        <a href="{{ url_for('agregar_producto') }}" class="btn btn-success mb-3">Agregar Producto</a>
 
-        <a href="{{ url_for('agregar_producto') }}">
-            <button class="btn btn-success mb-3">Agregar Producto</button>
-        </a>
-        
         <table class="table table-striped">
             <thead>
                 <tr>
@@ -68,15 +68,14 @@
                     <td>{{ producto.talle }}</td>
                     <td>{{ producto.color }}</td>
                     <td>
-                        <a href="{{ url_for('detalle_producto', codigo=producto.codigo) }}">
-                            <button class="btn btn-info">Ver Detalle</button>
-                        </a>
+                        <a href="{{ url_for('detalle_producto', codigo=producto.codigo) }}" class="btn btn-warning">Ver Detalle</a>
                     </td>
                 </tr>
                 {% endfor %}
             </tbody>
         </table>
-        <a href="{{ url_for('home') }}"><button class="btn btn-secondary">Volver al Home</button></a>
+        
+        
     </div>
 </body>
 </html>

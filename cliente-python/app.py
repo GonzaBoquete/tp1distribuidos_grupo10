@@ -321,14 +321,20 @@ def agregar_usuario():
     if request.method == 'POST':
         nombre_usuario = request.form['nombre_usuario']
         contrasena = request.form['contrasena']
-        tienda = request.form['tienda']
+        tienda_id = request.form['tienda']  # Cambiar a tienda_id
         nombre = request.form['nombre']
         apellido = request.form['apellido']
         rol = request.form['rol']
-        habilitado = request.form['habilitado']
-        usuario_cliente.add_usuario(nombre_usuario, contrasena, str(tienda), nombre, apellido, rol, habilitado)
+        habilitado = 'habilitado' in request.form  # Cambiar para obtener el valor booleano
+
+        # Llamada al cliente para agregar el usuario
+        usuario_cliente.add_usuario(nombre_usuario, contrasena, tienda_id, nombre, apellido, rol, habilitado)
         return redirect(url_for('listar_usuarios'))
-    return render_template('agregar_usuario.html')
+
+    tiendas = tienda_cliente.get_all_tiendas().tiendas
+    return render_template('agregar_usuario.html', tiendas=tiendas)
+
+
 
 # Rutas de login para usuarios
 @app.route('/login', methods=['GET', 'POST'])
@@ -345,8 +351,6 @@ def login_usuario():
         else:
             return render_template('login.html', error="Error en el inicio de sesión")
     return render_template('login.html')
-
-
 
 @app.route('/usuario/<int:id>', methods=['GET'])
 @require_login
