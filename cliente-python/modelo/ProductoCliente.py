@@ -39,5 +39,5 @@ class ProductoCliente:
     def close(self):
         self.channel.close()
 
-# Uso de la clase
+
 

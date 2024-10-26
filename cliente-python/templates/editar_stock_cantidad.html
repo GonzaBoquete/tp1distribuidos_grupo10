@@ -26,11 +26,10 @@
     <div class="container">
         <h1>Editar Cantidad de Stock</h1>
         <form method="POST">
-            <label for="id">ID Stock:</label>
-            <input type="text" id="id" name="id" value="{{ stock_actual.id }}" readonly><br>
+          <p><strong>Producto:</strong> {{ stock.idProducto }} - {{producto.nombre}} {{producto.color}}- Talle: {{producto.talle}}</p>
 
-            <label for="cantidad">Nueva Cantidad:</label>
-            <input type="number" id="cantidad" name="cantidad" value="{{ stock_actual.cantidad }}" required><br>
+            <label for="cantidad"><strong>Nueva Cantidad:</strong></label>
+            <input type="number" id="cantidad" name="cantidad" value="{{ stock.cantidad }}" required><br>
 
             <button type="submit">Actualizar Cantidad</button>
         </form>

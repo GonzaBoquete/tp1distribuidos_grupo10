@@ -58,20 +58,15 @@ public class GrpcStockServiceImpl extends StockServiceImplBase {
 		// Obtener la lista de stocks desde el servicio
 		List<com.stockearte.tp1_grupo10.model.Stock> stocksEncontrados = stockService.getAll();
 
-		// Crear el builder de StockList
 		StockList.Builder stockListBuilder = StockList.newBuilder();
 
-		// Convertir cada objeto Stock de la lista al formato gRPC y agregarlo a
-		// StockList
 		for (com.stockearte.tp1_grupo10.model.Stock stock : stocksEncontrados) {
 			Stock grpcStock = Stock.newBuilder().setId(stock.getId()).setCantidad(stock.getCantidad())
 					.setIdProducto(stock.getProducto().getCodigo()).setIdTienda(stock.getTienda().getCodigo()).build();
 
-			// Agregar cada stock al builder
 			stockListBuilder.addStocks(grpcStock);
 		}
 
-		// Construir la lista de stocks final
 		StockList stockList = stockListBuilder.build();
 
 		// Enviar la respuesta

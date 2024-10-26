@@ -20,5 +20,6 @@ public interface UsuarioService {
 	List<Usuario> buscarUsuario(String nombre, Tienda tienda);
 	
 	List<Usuario> buscarUsuario(String nombre);
-
+	
+	List<Usuario> buscarUsuario(Tienda tienda);
 }

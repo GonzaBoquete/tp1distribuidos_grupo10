@@ -35,6 +35,23 @@ class TiendaCliente:
         )
         return self.stub.update(tienda_actualizada)
 
+    def cambiar_estado(self, codigo):
+        # Obtiene la tienda actual
+        tienda = self.get_tienda(codigo)
+        
+        # Cambia el estado de habilitación
+        nueva_habilitacion = not tienda.habilitada
+        
+        # Llama a update con el nuevo estado
+        return self.update_tienda(
+            codigo=codigo,
+            direccion=tienda.direccion,
+            ciudad=tienda.ciudad,
+            provincia=tienda.provincia,
+            habilitada=nueva_habilitacion
+        )
+
+
     def close(self):
         self.channel.close()
 
